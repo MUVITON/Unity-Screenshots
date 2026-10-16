@@ -16,6 +16,7 @@ namespace Screenshots.Editor
 
         private enum Mode
         {
+            None,
             Default,
             Custom
         }
@@ -23,34 +24,45 @@ namespace Screenshots.Editor
 
         #region State
 
+        private const string AutoModeBtnActiveClass = "auto-mode-btn--active";
+
         private readonly EditorSceneManager.SceneOpenedCallback _setDefaultPathByScene;
         private readonly Action<PrefabStage> _setDefaultPathByPrefab;
 
         private readonly TextField _field;
+        private readonly Button _autoModeBtn;
         private readonly SerializedProperty _property;
 
         private Mode _mode;
+
+        public string Path => _field.value;
 
         #endregion
 
 
         #region Initialization
 
-        public FolderPathController(TextField field, Button defaultBtn, SerializedProperty property)
+        public FolderPathController(VisualElement block, SerializedProperty property)
         {
             _setDefaultPathByScene  = SetDefaultPathByScene;
             _setDefaultPathByPrefab = SetDefaultPathByPrefab;
 
             _property = property;
 
-            _field = field;
-            _field.RegisterCallback<ClickEvent>(e => SelectFolder());
-            _field.RegisterCallback<MouseDownEvent>(e => { if (e.button == 2) OpenFolder(); });
+            _field = block.Q<TextField>("folder-path-field");
+            _field.RegisterCallback<ClickEvent>(e => { if (e.clickCount == 2) OpenFolder(); });
             _field.TrackPropertyValue(property, OnPropertyChanged);
 
-            defaultBtn.RegisterCallback<ClickEvent>(e =>
+            block.Q<Button>("select-folder-btn").RegisterCallback<ClickEvent>(e => SelectFolder());
+
+            _autoModeBtn = block.Q<Button>("auto-mode-btn");
+            _autoModeBtn.RegisterCallback<ClickEvent>(e =>
             {
-                _property.stringValue = null;
+                if (_mode == Mode.Default)
+                    _property.stringValue = _field.value;
+                else
+                    _property.stringValue = null;
+
                 _property.serializedObject.ApplyModifiedProperties();
             });
 
@@ -90,11 +102,13 @@ namespace Screenshots.Editor
 
         private void SetDefaultMode()
         {
+            _autoModeBtn.AddToClassList(AutoModeBtnActiveClass);
             StartTrackSceneChange();
         }
 
         private void SetCustomMode()
         {
+            _autoModeBtn.RemoveFromClassList(AutoModeBtnActiveClass);
             StopTrackSceneChange();
         }
 
@@ -169,7 +183,7 @@ namespace Screenshots.Editor
 
         private void OpenFolder()
         {
-            EditorUtility.RevealInFinder(_field.value + Path.DirectorySeparatorChar);
+            EditorUtility.RevealInFinder(_field.value + System.IO.Path.DirectorySeparatorChar);
         }
 
         #endregion

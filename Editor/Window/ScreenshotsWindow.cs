@@ -21,7 +21,7 @@ namespace Screenshots.Editor
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
-        private TextField _folderPathField;
+        private FolderPathController _folderPathController;
 
         private Camera _camera;
 
@@ -54,9 +54,8 @@ namespace Screenshots.Editor
             InitOrientation(root, so);
             InitFooter(root);
 
-            new FolderPathController(
-                root.Q<TextField>("folder-path-field"), 
-                root.Q<Button>("set-default-btn"), 
+            _folderPathController = new FolderPathController(
+                root.Q<VisualElement>("folder-path-container"), 
                 so.FindProperty("<FolderPath>k__BackingField")
             );
         }
@@ -104,6 +103,16 @@ namespace Screenshots.Editor
         #endregion
 
 
+        #region Destroy
+
+        private void OnDestroy()
+        {
+            _folderPathController.Dispose();
+        }
+
+        #endregion
+
+
         #region Screenshots
 
         /// <summary>
@@ -126,7 +135,7 @@ namespace Screenshots.Editor
             RenderTexture.active = null;
 
             byte[] bytes = tex.EncodeToPNG();
-            string folder = _folderPathField.value;
+            string folder = _folderPathController.Path;
             string fileName = FileNameProvider.Get() + ".png";
             string path = Path.Combine(folder, fileName);
 
@@ -146,7 +155,7 @@ namespace Screenshots.Editor
         /// </summary>
         private void ClearFolder()
         {
-            string folderWithSeparator = _folderPathField.value + Path.DirectorySeparatorChar;
+            string folderWithSeparator = _folderPathController.Path + Path.DirectorySeparatorChar;
             if (!Directory.Exists(folderWithSeparator))
                 return;
 

@@ -11,7 +11,6 @@
 
 #screen-record-window #folder-path-container {
     flex-direction: row;
-    flex-grow: 1;
     justify-content: center;
     align-content: auto;
     flex-wrap: nowrap;
@@ -39,4 +38,9 @@
     font-size: 18px;
     flex-grow: 1;
     flex-shrink: 1;
+}
+
+.auto-mode-btn--active {
+    background-color: var(--unity-colors-toolbar_button-background-checked);
+    color: var(--unity-colors-toolbar_button-text-checked);
 }
