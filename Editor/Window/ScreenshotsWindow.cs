@@ -18,8 +18,8 @@ namespace Screenshots.Editor
 
         #region State
 
-        [SerializeField, Tooltip("Visual Tree Asset for the Screen Record Window UI")]
-        private VisualTreeAsset _screenRecordWindowUXMLAsset;
+        [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
+        private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
         private TextField _folderPathField;
 
@@ -45,20 +45,27 @@ namespace Screenshots.Editor
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
-            root.Add(_screenRecordWindowUXMLAsset.Instantiate());
+            root.Add(_screenshotsWindowUXMLAsset.Instantiate());
             root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
-            InitCameraField(root);
-            InitScreenshotOrientation(root);
-            InitFolderPathSelector(root);
+            var so = new SerializedObject(ScreenshotsConfig.Instance);
+
+            InitCamera(root);
+            InitOrientation(root, so);
             InitFooter(root);
+
+            new FolderPathController(
+                root.Q<TextField>("folder-path-field"), 
+                root.Q<Button>("set-default-btn"), 
+                so.FindProperty("<FolderPath>k__BackingField")
+            );
         }
 
         /// <summary>
         /// Initializes the camera selection field.
         /// </summary>
         /// <param name="root">The root VisualElement of the window.</param>
-        private void InitCameraField(VisualElement root)
+        private void InitCamera(VisualElement root)
         {
             ObjectField cameraField = root.Q<ObjectField>("camera-source");
             cameraField.RegisterValueChangedCallback(e => { _camera = e.newValue as Camera; });
@@ -68,47 +75,10 @@ namespace Screenshots.Editor
         /// Initializes the screen orientation field and render texture.
         /// </summary>
         /// <param name="root">The root VisualElement of the window.</param>
-        private void InitScreenshotOrientation(VisualElement root)
+        private void InitOrientation(VisualElement root, SerializedObject so)
         {
             var field = root.Q<EnumField>("orientation-field");
-            field.BindProperty(new SerializedObject(ScreenshotsConfig.Instance));
-        }
-
-        /// <summary>
-        /// Initializes the folder path selector.
-        /// </summary>
-        /// <param name="root">The root VisualElement of the window.</param>
-        private void InitFolderPathSelector(VisualElement root)
-        {
-            _folderPathField = root.Q<TextField>("folder-path-field");
-            _folderPathField.SetValueWithoutNotify(!string.IsNullOrEmpty(ScreenshotsConfig.Instance.FolderPath)
-                ? ScreenshotsConfig.Instance.FolderPath : FolderPathProvider.Get());
-
-            VisualElement textInput = _folderPathField.Q("unity-text-input");
-            // Register callback to open folder selection dialog.
-            textInput.RegisterCallback<ClickEvent>(e =>
-            {
-                string folderPath = EditorUtility.OpenFolderPanel("Choose folder", _folderPathField.value, "");
-
-                if (string.IsNullOrEmpty(folderPath))
-                    return;
-
-                Undo.RecordObject(ScreenshotsConfig.Instance, "Change Folder Path");
-
-                _folderPathField.value = folderPath;
-                ScreenshotsConfig.Instance.FolderPath = folderPath;
-
-                EditorUtility.SetDirty(ScreenshotsConfig.Instance);
-                Undo.FlushUndoRecordObjects();
-            });
-            // Register callback to reveal folder in Finder when middle-clicked.
-            textInput.RegisterCallback<MouseDownEvent>(e =>
-            {
-                if (e.button == 2)
-                    EditorUtility.RevealInFinder(_folderPathField.value + Path.DirectorySeparatorChar);
-            });
-
-            root.Q<Button>("set-default-btn").clicked += () => _folderPathField.value = FolderPathProvider.Get();
+            field.BindProperty(so);
         }
 
         /// <summary>
@@ -121,8 +91,6 @@ namespace Screenshots.Editor
             root.Q<Button>("clear-folder-btn").clicked += ClearFolder;
         }
 
-        #endregion
-
         /// <summary>
         /// Handles key down events. Triggers screenshot capture when Ctrl+E is pressed.
         /// </summary>
@@ -132,6 +100,11 @@ namespace Screenshots.Editor
             if (e.ctrlKey && e.keyCode == KeyCode.E)
                 MakeScreenShot();
         }
+
+        #endregion
+
+
+        #region Screenshots
 
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
@@ -184,6 +157,8 @@ namespace Screenshots.Editor
                 file.Delete();
             }
         }
+
+        #endregion
 
     }
 
