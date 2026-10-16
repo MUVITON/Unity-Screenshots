@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Plugins/Screenshots/Editor/USS/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=94604038384a6fb4b966f584f3df87a7&amp;type=3#ScreenshotsWindow"/>
+    <engine:VisualElement name="screen-record-window" style="flex-grow: 1; -unity-font-style: bold; font-size: 15px;">
+        <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
+        <engine:EnumField label="Oriintation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
+        <engine:VisualElement name="folder-path-container" style="flex-grow: 1;">
+            <engine:TextField label="Folder:" placeholder-text="filler text" name="folder-path-field" select-word-by-double-click="false" select-line-by-triple-click="false" readonly="true" select-all-on-focus="false" select-all-on-mouse-up="false"/>
+            <engine:Button text="Default" name="set-default-btn"/>
+        </engine:VisualElement>
+        <engine:VisualElement name="footer-container" style="flex-grow: 1; font-size: 18px;">
+            <engine:Button text="Screenshot" name="screenshot-btn"/>
+            <engine:Button text="Clear Folder" name="clear-folder-btn"/>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 928383fa3449e9242a8843693e0eb87f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - _screenRecordWindowUXMLAsset: {fileID: 9197481963319205126, guid: 976edfc09d47bd245b9ac98030df9f8f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

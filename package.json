@@ -1,0 +1,12 @@
+{
+  "name": "com.muviton.screenshots",
+  "version": "1.0.0",
+  "displayName": "Screenshots",
+  "description": "A zero-allocation Unity Editor utility for capturing high-resolution screenshots from any camera.",
+  "unity": "6000.5",
+  "author": {
+    "name": "Muviton",
+    "email": "filigram.anygram@gmail.com",
+    "url": "https://github.com/MUVITON"
+  }
+}

@@ -1,0 +1,42 @@
+#screen-record-window {
+    margin-left: 18px;
+    margin-right: 15px;
+    margin-top: 15px;
+    font-size: 48px;
+}
+
+#screen-record-window > * {
+    margin-bottom: 7px;
+}
+
+#screen-record-window #folder-path-container {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: center;
+    align-content: auto;
+    flex-wrap: nowrap;
+    flex-basis: auto;
+}
+
+#screen-record-window #folder-path-container > * {
+    flex-grow: 1;
+}
+
+#screen-record-window #folder-path-field {
+    flex-grow: 1;
+    width: 80%;
+}
+
+#screen-record-window #footer-container {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: auto;
+    align-self: auto;
+    align-items: flex-start;
+}
+
+#screen-record-window #footer-container > Button {
+    font-size: 18px;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
