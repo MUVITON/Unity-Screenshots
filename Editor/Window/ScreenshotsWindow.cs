@@ -48,7 +48,7 @@ namespace Screenshots.Editor
             root.Add(_screenshotsWindowUXMLAsset.Instantiate());
             root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
-            var so = new SerializedObject(ScreenshotsConfig.Instance);
+            var so = new SerializedObject(ScreenshotsConfig.instance);
 
             InitCamera(root);
             InitOrientation(root, so);
