@@ -8,6 +8,9 @@ namespace Screenshots.Editor
     public sealed class DefaultFolderPathController : FolderPathController
     {
 
+        const string DefaultPath = "Screenshots";
+
+
         public DefaultFolderPathController(FolderField field, SerializedProperty property)
             : base(field, property)
         {
@@ -17,7 +20,7 @@ namespace Screenshots.Editor
 
         private void SetDefaultPath()
         {
-            Property.stringValue = FolderPathProvider.PackagePath;
+            Property.stringValue = DefaultPath;
             Property.serializedObject.ApplyModifiedProperties();
         }
 
