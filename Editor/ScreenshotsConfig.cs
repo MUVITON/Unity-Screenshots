@@ -28,6 +28,9 @@ namespace Screenshots.Editor
         [field: SerializeField, Tooltip("")]
         public string FolderPath { get; set; }
 
+        [field: SerializeField, Tooltip("")]
+        public string DefaultFolderPath { get; set; }
+
 
         public static ScreenshotsConfig GetInstance()
         {

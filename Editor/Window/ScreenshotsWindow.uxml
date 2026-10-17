@@ -1,13 +1,12 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/USS/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=94604038384a6fb4b966f584f3df87a7&amp;type=3#ScreenshotsWindow"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
     <engine:VisualElement name="screen-record-window" style="flex-grow: 1; -unity-font-style: bold; font-size: 15px;">
         <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
         <engine:EnumField label="Oriintation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
-        <engine:VisualElement name="folder-path-container">
-            <engine:TextField label="Folder:" placeholder-text="filler text" name="folder-path-field" select-word-by-double-click="false" select-line-by-triple-click="false" readonly="true" select-all-on-focus="false" select-all-on-mouse-up="false"/>
-            <engine:Button text="..." name="select-folder-btn" emoji-fallback-support="false"/>
-            <engine:Button text="A" name="auto-mode-btn" selectable="false" double-click-selects-word="false" triple-click-selects-line="false" parse-escape-sequences="false" enabled="true" focusable="false"/>
-        </engine:VisualElement>
+        <Screenshots.Editor.InlineFoldout value="true">
+            <Screenshots.Editor.FolderField name="active-folder-path"/>
+            <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R"/>
+        </Screenshots.Editor.InlineFoldout>
         <engine:VisualElement name="footer-container" style="flex-grow: 1; font-size: 18px;">
             <engine:Button text="Screenshot" name="screenshot-btn"/>
             <engine:Button text="Clear Folder" name="clear-folder-btn"/>

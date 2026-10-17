@@ -1,0 +1,31 @@
+#settings-block {
+    align-items: flex-start;
+}
+
+#settings-block .unity-toggle__input {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    margin-top: 3px;
+}
+
+#settings-block > .unity-toggle__input > .unity-toggle__checkmark {
+    align-self: center;
+    margin-left: 0;
+    margin-right: 5px;
+    margin-top: 1px;
+    -unity-slice-left: 13;
+    -unity-slice-top: 13;
+    background-image: resource("uipackageresources/images/d_in_foldout.png");
+    width: 13px;
+    height: 13px;
+}
+
+#settings-block #content-block {
+    flex-grow: 1;
+}
+
+#settings-block > .unity-toggle__input:checked > .unity-toggle__checkmark {
+    background-image: resource("uipackageresources/images/d_in_foldout_on.png");
+}
+

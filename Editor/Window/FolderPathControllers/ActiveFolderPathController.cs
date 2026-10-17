@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -11,7 +9,7 @@ using UnityEngine.UIElements;
 namespace Screenshots.Editor
 {
 
-    public class FolderPathController : IDisposable
+    public sealed class ActiveFolderPathController : FolderPathController, IDisposable
     {
 
         private enum Mode
@@ -29,54 +27,36 @@ namespace Screenshots.Editor
         private readonly EditorSceneManager.SceneOpenedCallback _setDefaultPathByScene;
         private readonly Action<PrefabStage> _setDefaultPathByPrefab;
 
-        private readonly TextField _field;
-        private readonly Button _autoModeBtn;
-        private readonly SerializedProperty _property;
+        private SerializedProperty _defaultPath;
 
         private Mode _mode;
-
-        public string Path => _field.value;
 
         #endregion
 
 
         #region Initialization
 
-        public FolderPathController(VisualElement block, SerializedProperty property)
+        public ActiveFolderPathController(FolderField field, SerializedProperty activePath, SerializedProperty defaultPath)
+            : base(field, activePath)
         {
             _setDefaultPathByScene  = SetDefaultPathByScene;
             _setDefaultPathByPrefab = SetDefaultPathByPrefab;
 
-            _property = property;
+            _defaultPath = defaultPath;
 
-            _field = block.Q<TextField>("folder-path-field");
-            _field.RegisterCallback<ClickEvent>(e => { if (e.clickCount == 2) OpenFolder(); });
-            _field.TrackPropertyValue(property, OnPropertyChanged);
+            Field.Input.TrackPropertyValue(_defaultPath, p => OnPropertyChanged(Property));
 
-            block.Q<Button>("select-folder-btn").RegisterCallback<ClickEvent>(e => SelectFolder());
-
-            _autoModeBtn = block.Q<Button>("auto-mode-btn");
-            _autoModeBtn.RegisterCallback<ClickEvent>(e =>
+            Field.SecondButton.RegisterCallback<ClickEvent>(e =>
             {
                 if (_mode == Mode.Default)
-                    _property.stringValue = _field.value;
+                    Property.stringValue = Path;
                 else
-                    _property.stringValue = null;
+                    Property.stringValue = null;
 
-                _property.serializedObject.ApplyModifiedProperties();
+                Property.serializedObject.ApplyModifiedProperties();
             });
 
-            OnPropertyChanged(_property);
-        }
-
-        #endregion
-
-
-        #region Dispose
-
-        public void Dispose()
-        {
-            StopTrackSceneChange();
+            OnPropertyChanged(Property);
         }
 
         #endregion
@@ -102,13 +82,13 @@ namespace Screenshots.Editor
 
         private void SetDefaultMode()
         {
-            _autoModeBtn.AddToClassList(AutoModeBtnActiveClass);
+            Field.SecondButton.AddToClassList(AutoModeBtnActiveClass);
             StartTrackSceneChange();
         }
 
         private void SetCustomMode()
         {
-            _autoModeBtn.RemoveFromClassList(AutoModeBtnActiveClass);
+            Field.SecondButton.RemoveFromClassList(AutoModeBtnActiveClass);
             StopTrackSceneChange();
         }
 
@@ -139,51 +119,38 @@ namespace Screenshots.Editor
             SetDefaultPath();
         }
 
-        private void SetDefaultPath()
-        {
-            _field.SetValueWithoutNotify(FolderPathProvider.Get());
-        }
-
         #endregion
 
 
-        #region Event Handlers
+        #region Update Handlers
 
-        private void OnPropertyChanged(SerializedProperty prop)
+        protected override void OnPropertyChanged(SerializedProperty property)
         {
-            if (string.IsNullOrEmpty(prop.stringValue))
+            if (string.IsNullOrEmpty(property.stringValue))
             {
                 SetDefaultPath();
                 SetMode(Mode.Default);
             }
             else
             {
-                _field.SetValueWithoutNotify(prop.stringValue);
+                Field.Input.SetValueWithoutNotify(property.stringValue);
                 SetMode(Mode.Custom);
             }
+        }
+        private void SetDefaultPath()
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            Field.Input.SetValueWithoutNotify($"{_defaultPath.stringValue}/{scene.name}");
         }
 
         #endregion
 
 
-        #region Navigation
+        #region Dispose
 
-        private void SelectFolder()
+        public void Dispose()
         {
-            string folderPath = EditorUtility.OpenFolderPanel("Choose folder", _field.value, "");
-
-            if (string.IsNullOrEmpty(folderPath))
-                return;
-
-            _property.stringValue = folderPath;
-            _property.serializedObject.ApplyModifiedProperties();
-
-            SetMode(Mode.Custom);
-        }
-
-        private void OpenFolder()
-        {
-            EditorUtility.RevealInFinder(_field.value + System.IO.Path.DirectorySeparatorChar);
+            StopTrackSceneChange();
         }
 
         #endregion

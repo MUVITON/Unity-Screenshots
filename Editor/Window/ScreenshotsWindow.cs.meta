@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_ViewDataDictionary: {instanceID: 0}
-  - _screenshotsWindowUXMLAsset: {fileID: 9197481963319205126, guid: 976edfc09d47bd245b9ac98030df9f8f, type: 3}
+  - _screenshotsWindowUXMLAsset: {fileID: 9197481963319205126, guid: 6bf1def6231864d49aedb57025d52ac9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

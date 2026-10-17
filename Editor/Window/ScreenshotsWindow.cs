@@ -21,7 +21,7 @@ namespace Screenshots.Editor
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
-        private FolderPathController _folderPathController;
+        private ActiveFolderPathController _folderPathController;
 
         private Camera _camera;
 
@@ -54,9 +54,15 @@ namespace Screenshots.Editor
             InitOrientation(root, so);
             InitFooter(root);
 
-            _folderPathController = new FolderPathController(
-                root.Q<VisualElement>("folder-path-container"), 
-                so.FindProperty("<FolderPath>k__BackingField")
+            new DefaultFolderPathController(
+                root.Q<FolderField>("default-folder-path"), 
+                so.FindProperty("<DefaultFolderPath>k__BackingField")
+            );
+
+            _folderPathController = new ActiveFolderPathController(
+                root.Q<FolderField>("active-folder-path"),
+                so.FindProperty("<FolderPath>k__BackingField"),
+                so.FindProperty("<DefaultFolderPath>k__BackingField")
             );
         }
 
@@ -155,16 +161,16 @@ namespace Screenshots.Editor
         /// </summary>
         private void ClearFolder()
         {
-            string folderWithSeparator = _folderPathController.Path + Path.DirectorySeparatorChar;
-            if (!Directory.Exists(folderWithSeparator))
-                return;
+            //string folderWithSeparator = _folderPathController.Path + Path.DirectorySeparatorChar;
+            //if (!Directory.Exists(folderWithSeparator))
+            //    return;
 
-            DirectoryInfo di = new DirectoryInfo(folderWithSeparator);
+            //DirectoryInfo di = new DirectoryInfo(folderWithSeparator);
 
-            foreach (FileInfo file in di.GetFiles())
-            {
-                file.Delete();
-            }
+            //foreach (FileInfo file in di.GetFiles())
+            //{
+            //    file.Delete();
+            //}
         }
 
         #endregion
