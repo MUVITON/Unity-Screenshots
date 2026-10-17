@@ -1,5 +1,7 @@
-.folder-field {
+.inline-field {
     flex-direction: row;
 }
 
-
+.inline-field > .inline-field__input {
+    flex-grow: 1;
+}

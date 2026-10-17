@@ -29,6 +29,12 @@ namespace Screenshots.Editor
         [field: SerializeField, Tooltip("")]
         public string DefaultFolderPath { get; set; }
 
+        [field: SerializeField, Tooltip("")]
+        public string FileName { get; set; }
+
+        [field: SerializeField, Tooltip("")]
+        public ScreenshotType FileType { get; set; }
+
 
         public static Vector2Int GetSize()
         {

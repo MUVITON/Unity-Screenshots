@@ -1,11 +1,58 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/FolderField/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
     <engine:VisualElement name="screen-record-window" style="flex-grow: 1; -unity-font-style: bold; font-size: 15px;">
         <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
         <engine:EnumField label="Oriintation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
-        <Screenshots.Editor.InlineFoldout value="true">
+        <Screenshots.Editor.InlineFoldout value="true" name="folder-block">
             <Screenshots.Editor.FolderField name="active-folder-path"/>
             <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R"/>
+        </Screenshots.Editor.InlineFoldout>
+        <Screenshots.Editor.InlineFoldout name="file-name">
+            <engine:VisualElement name="file-name__control" class="inline-field" style="flex-grow: 1;">
+                <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
+                <engine:Label text="." name="file-name__dot"/>
+                <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField"/>
+                <engine:Button text="R" name="file-name__reset-btn"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="file-name__docs" class="variables-legend" style="flex-grow: 1;">
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{P}" class="variables-legend__tag"/>
+                    <engine:Label text="= Project name" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{S}" class="variables-legend__tag"/>
+                    <engine:Label text="= Scene name" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{Y}" class="variables-legend__tag"/>
+                    <engine:Label text="= Year" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{M}" class="variables-legend__tag"/>
+                    <engine:Label text="= Month" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{D}" class="variables-legend__tag"/>
+                    <engine:Label text="= Day" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{h}" class="variables-legend__tag"/>
+                    <engine:Label text="= Hour" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{m}" class="variables-legend__tag"/>
+                    <engine:Label text="= Minute" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{s}" class="variables-legend__tag"/>
+                    <engine:Label text="= Second" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{f}" class="variables-legend__tag"/>
+                    <engine:Label text="= Milliseconds" class="variables-legend__desc"/>
+                </engine:VisualElement>
+            </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <engine:VisualElement name="footer-container" style="flex-grow: 1; font-size: 18px;">
             <engine:Button text="Screenshot" name="screenshot-btn"/>

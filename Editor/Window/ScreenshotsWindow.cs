@@ -21,7 +21,9 @@ namespace Screenshots.Editor
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
-        private ActiveFolderPathController _folderPathController;
+        private ActiveFolderPathController _folderPath;
+        private FileNameController _fileName;
+        private EnumField _fileType;
 
         private Camera _camera;
 
@@ -45,10 +47,11 @@ namespace Screenshots.Editor
         public void CreateGUI()
         {
             VisualElement root = rootVisualElement;
-            root.Add(_screenshotsWindowUXMLAsset.Instantiate());
-            root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
-
             var so = new SerializedObject(ScreenshotsConfig.instance);
+
+            root.Add(_screenshotsWindowUXMLAsset.Instantiate());
+            root.Bind(so);
+            root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
             InitCamera(root);
             InitOrientation(root, so);
@@ -59,11 +62,18 @@ namespace Screenshots.Editor
                 so.FindProperty("<DefaultFolderPath>k__BackingField")
             );
 
-            _folderPathController = new ActiveFolderPathController(
+            _folderPath = new ActiveFolderPathController(
                 root.Q<FolderField>("active-folder-path"),
                 so.FindProperty("<FolderPath>k__BackingField"),
                 so.FindProperty("<DefaultFolderPath>k__BackingField")
             );
+
+            _fileName = new FileNameController(
+                root.Q<TextField>("file-name__field"),
+                root.Q<Button>("file-name__reset-btn")
+            );
+
+            _fileType = root.Q<EnumField>("file-name__type");
         }
 
         /// <summary>
@@ -113,7 +123,7 @@ namespace Screenshots.Editor
 
         private void OnDestroy()
         {
-            _folderPathController.Dispose();
+            _folderPath.Dispose();
         }
 
         #endregion
@@ -141,8 +151,8 @@ namespace Screenshots.Editor
             RenderTexture.active = null;
 
             byte[] bytes = tex.EncodeToPNG();
-            string folder = _folderPathController.Path;
-            string fileName = FileNameProvider.Get() + ".png";
+            string folder = _folderPath.Path;
+            string fileName = _fileName.Value + ".png";
             string path = Path.Combine(folder, fileName);
 
             if (!Directory.Exists(folder))
@@ -161,7 +171,7 @@ namespace Screenshots.Editor
         /// </summary>
         private void ClearFolder()
         {
-            //string folderWithSeparator = _folderPathController.Path + Path.DirectorySeparatorChar;
+            //string folderWithSeparator = _folderPath.Path + Path.DirectorySeparatorChar;
             //if (!Directory.Exists(folderWithSeparator))
             //    return;
 

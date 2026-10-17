@@ -44,3 +44,36 @@
     background-color: var(--unity-colors-toolbar_button-background-checked);
     color: var(--unity-colors-toolbar_button-text-checked);
 }
+
+.variables-legend {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    padding: 6px 8px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 1px;
+}
+
+.variables-legend__row {
+    flex-direction: row; 
+}
+
+.variables-legend__tag {
+    width: 20px; 
+    color: #999999;
+    font-size: 11px;
+    -unity-text-align: middle-left;
+    margin: 1px 0;
+    padding: 0;
+}
+
+.variables-legend__desc {
+    color: #999999;
+    font-size: 11px;
+    -unity-text-align: middle-left;
+    margin: 1px 0;
+    padding: 0;
+}
+
+
