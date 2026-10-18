@@ -73,6 +73,7 @@ namespace Screenshots.Editor
 
             _fileName = new FileNameController(
                 root.Q<TextField>("file-name__field"),
+                root.Q<Label>("file-name__preview"),
                 root.Q<Button>("file-name__reset-btn")
             );
 

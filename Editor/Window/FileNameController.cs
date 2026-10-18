@@ -10,17 +10,35 @@ namespace Screenshots.Editor
         const string defaultName = "{P}_{S}_{Y}{M}{D}";
 
         private readonly TextField _field;
+        private readonly Label _preview;
 
-        public string Value => FileNameProvider.Get(_field.value);
+        private string _value;
+        public string Value
+        {
+            get
+            {
+                UpdateValue();
+                return _value;
+            }
+        }
 
-        public FileNameController(TextField field, Button resetBtn)
+        public FileNameController(TextField field, Label preview, Button resetBtn)
         {
             _field = field;
+            _preview = preview;
 
+            field.RegisterValueChangedCallback(e => UpdateValue());
             field.RegisterCallback<FocusOutEvent>(e => OnFocusOut());
             resetBtn.RegisterCallback<ClickEvent>(e => ResetName());
 
             OnFocusOut();
+            UpdateValue();
+        }
+
+        private void UpdateValue()
+        {
+            _value = FileNameProvider.Get(_field.value);
+            _preview.text = FileNameProvider.Get(_value);
         }
 
         private void OnFocusOut()
@@ -33,7 +51,7 @@ namespace Screenshots.Editor
         {
             _field.value = defaultName;
         }
-     
+
     }
 
 }

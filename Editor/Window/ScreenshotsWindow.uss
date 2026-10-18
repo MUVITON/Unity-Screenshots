@@ -21,8 +21,17 @@
     background-color: var(--unity-colors-highlight-background-hover-lighter);
 }
 
+.file-name__preview {
+    -unity-text-align: upper-right;
+    padding-right: 0;
+    margin-right: 3px;
+    -unity-font-style: italic;
+    font-size: 9px;
+}
+
 .file-name__dot {
     -unity-text-align: lower-left;
+    margin-top: 4px;
 }
 
 .file-name__type {
