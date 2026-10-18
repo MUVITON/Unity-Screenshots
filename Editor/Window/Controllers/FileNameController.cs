@@ -37,7 +37,9 @@ namespace Screenshots.Editor
 
         private void UpdateValue()
         {
-            _value = FileNameProvider.Get(_field.value);
+            string input = string.IsNullOrEmpty(_field.value) ? defaultName : _field.value;
+
+            _value = FileNameProvider.Get(input);
             _preview.text = FileNameProvider.Get(_value);
         }
 
