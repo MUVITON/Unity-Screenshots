@@ -1,0 +1,26 @@
+.window {
+    padding-top: 5px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+.window > * {
+    margin-top: 3px;
+    flex-grow: 1;
+    margin-bottom: 3px;
+}
+
+
+
+.auto-mode-btn--active {
+    background-color: var(--unity-colors-highlight-background);
+    color: var(--unity-colors-highlight-text);
+}
+
+.auto-mode-btn--active:hover {
+    background-color: var(--unity-colors-highlight-background-hover-lighter);
+}
+
+

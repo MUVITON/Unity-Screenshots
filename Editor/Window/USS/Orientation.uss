@@ -1,0 +1,19 @@
+.resolution__control {
+    flex-grow: 1;
+}
+
+.orientation--landscape .landscape-selector {
+    display: flex;
+}
+
+.orientation--landscape .portrait-selector {
+    display: none;
+}
+
+.orientation--portrait .landscape-selector {
+    display: none;
+}
+
+.orientation--portrait .portrait-selector {
+    display: flex;
+}

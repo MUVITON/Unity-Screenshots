@@ -10,18 +10,14 @@ namespace Screenshots.Editor
     internal class ScreenshotsConfig: ScriptableSingleton<ScreenshotsConfig>
     {
 
-        public static readonly Vector2Int DefaultLandscapeSize = new Vector2Int(2556, 1179);
-        public static readonly Vector2Int DefaultPortraitSize  = new Vector2Int(1179, 2556);
-
-
-        [field: SerializeField, Tooltip("")]
-        public Vector2Int LandscapeSize { get; set; } = DefaultLandscapeSize;
-
-        [field: SerializeField, Tooltip("")]
-        public Vector2Int PortraitSize { get; set; } = DefaultPortraitSize;
-
         [field: SerializeField, Tooltip("")]
         public ScreenshotOrientation Orientation { get; set; }
+
+        [field: SerializeField, Tooltip("")]
+        public LandscapeResolution LandscapeResolution { get; set; }
+
+        [field: SerializeField, Tooltip("")]
+        public PortraitResolution PortraitResolution { get; set; }
 
         [field: SerializeField, Tooltip("")]
         public string FolderPath { get; set; }
@@ -35,16 +31,6 @@ namespace Screenshots.Editor
         [field: SerializeField, Tooltip("")]
         public ScreenshotType FileType { get; set; }
 
-
-        public static Vector2Int GetSize()
-        {
-            return instance.Orientation switch
-            {
-                ScreenshotOrientation.Landscape => instance.LandscapeSize,
-                ScreenshotOrientation.Portrait  => instance.PortraitSize,
-                _ => throw new ArgumentOutOfRangeException(nameof(instance.Orientation))
-            };
-        }
 
         private void OnDisable()
         {

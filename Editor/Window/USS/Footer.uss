@@ -1,0 +1,26 @@
+
+
+.footer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    max-width: 500px;
+    flex-grow: 1;
+    align-self: center;
+    flex-basis: auto;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.footer > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.footer__row {
+    flex-direction: row;
+}
+
+.footer__row > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+}

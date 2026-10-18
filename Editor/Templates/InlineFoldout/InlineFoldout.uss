@@ -30,6 +30,11 @@
     margin-bottom: 2px;
 }
 
+.inline-foldout__child > .unity-base-field {
+    margin-left: 0;
+    margin-right: 0;
+}
+
 .inline-foldout .unity-toggle__input {
     flex-grow: 0;
     flex-shrink: 0;
@@ -52,3 +57,5 @@
 .inline-foldout > .unity-toggle__input:checked > .unity-toggle__checkmark {
     background-image: resource("uipackageresources/images/d_in_foldout_on.png");
 }
+
+

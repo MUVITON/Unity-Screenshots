@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,6 +22,7 @@ namespace Screenshots.Editor
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
+        private OrientationController _orientation;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
         private EnumField _fileType;
@@ -57,8 +58,12 @@ namespace Screenshots.Editor
             root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
             InitCamera(root);
-            InitOrientation(root, so);
             InitFooter(root);
+
+            _orientation = new OrientationController(
+                root.Q<VisualElement>("orientation-block"),
+                root.Q<EnumField>("orientation-selector")
+            );
 
             new DefaultFolderPathController(
                 root.Q<FolderField>("default-folder-path"), 
@@ -88,16 +93,6 @@ namespace Screenshots.Editor
         {
             ObjectField cameraField = root.Q<ObjectField>("camera-source");
             cameraField.RegisterValueChangedCallback(e => { _camera = e.newValue as Camera; });
-        }
-
-        /// <summary>
-        /// Initializes the screen orientation field and render texture.
-        /// </summary>
-        /// <param name="root">The root VisualElement of the window.</param>
-        private void InitOrientation(VisualElement root, SerializedObject so)
-        {
-            var field = root.Q<EnumField>("orientation-field");
-            field.BindProperty(so);
         }
 
         /// <summary>
@@ -135,13 +130,24 @@ namespace Screenshots.Editor
 
         #region Screenshots
 
+        private (int, int) GetSize()
+        {
+            return _orientation.Value switch
+            {
+                ScreenshotOrientation.Landscape => LandscapeResolutionProvider.GetSize(ScreenshotsConfig.instance.LandscapeResolution),
+                ScreenshotOrientation.Portrait  => PortraitResolutionProvider.GetSize(ScreenshotsConfig.instance.PortraitResolution),
+                _ => throw new InvalidOperationException()
+            };
+        }
+
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
         /// </summary>
         private async void MakeScreenShot()
         {
             Camera camera = _camera ?? SceneView.lastActiveSceneView.camera;
-            RenderTexture renderTexture = RenderTextureProvider.Get(ScreenshotsConfig.GetSize());
+            (int width, int height) = GetSize();
+            RenderTexture renderTexture = RenderTextureProvider.Get(new Vector2Int(width, height));
 
             RenderTexture oldRT = camera.targetTexture;
             camera.targetTexture = renderTexture;
