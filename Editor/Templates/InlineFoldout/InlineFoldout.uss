@@ -1,5 +1,7 @@
 .inline-foldout {
     align-items: flex-start;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .inline-foldout > .inline-foldout__content {
@@ -12,15 +14,15 @@
     border-right-width: 1px;
     border-bottom-width: 1px;
     border-left-width: 1px;
-    border-left-color: rgba(0, 0, 0, 0.298);
-    border-right-color: rgba(0, 0, 0, 0.298);
-    border-top-color: rgba(0, 0, 0, 0.298);
-    border-bottom-color: rgba(0, 0, 0, 0.298);
+    border-left-color: var(--unity-colors-box-border);
+    border-right-color: var(--unity-colors-box-border);
+    border-top-color: var(--unity-colors-box-border);
+    border-bottom-color: var(--unity-colors-box-border);
     padding-top: 1px;
     padding-bottom: 1px;
     padding-right: 8px;
     padding-left: 8px;
-    background-color: rgb(53, 53, 53);
+    background-color: var(--unity-colors-box-background);
 }
 
 .inline-foldout__child {

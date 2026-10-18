@@ -9,7 +9,7 @@
             <Screenshots.Editor.FolderField name="active-folder-path" class="inline-foldout__child"/>
             <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R" class="inline-foldout__child"/>
         </Screenshots.Editor.InlineFoldout>
-        <Screenshots.Editor.InlineFoldout name="file-name">
+        <Screenshots.Editor.InlineFoldout name="file-name" value="true">
             <engine:VisualElement name="file-name__control" class="inline-field inline-foldout__child" style="flex-grow: 1;">
                 <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
                 <engine:Label text="." name="file-name__dot" class="file-name__dot"/>
