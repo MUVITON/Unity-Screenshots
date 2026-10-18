@@ -15,6 +15,8 @@ namespace Screenshots.Editor
         private static readonly VisualTreeAsset _treeAsset;
 
 
+        private string _saveKey;
+
         public Toggle Toggle { get; }
 
         public override VisualElement contentContainer => _contentContainerInstance ?? this;
@@ -25,7 +27,11 @@ namespace Screenshots.Editor
         public bool Value
         {
             get => Toggle.value;
-            set => Toggle.value = value;
+            set
+            {
+                Toggle.SetValueWithoutNotify(value);
+                AlignChildrenDisplay(value);
+            }
         }
 
         private int _lastChildCount = -1;
@@ -60,11 +66,20 @@ namespace Screenshots.Editor
 
         private void OnToggleValueChanged(ChangeEvent<bool> evt)
         {
+            EditorPrefs.SetBool(_saveKey, evt.newValue);
             AlignChildrenDisplay(evt.newValue);
         }
 
         private void OnAttachToPanel(AttachToPanelEvent evt)
         {
+            string id = !string.IsNullOrEmpty(viewDataKey) ? viewDataKey : name;
+            _saveKey = $"Screenshots_UI_State_{id}";
+
+            if (EditorPrefs.HasKey(_saveKey))
+            {
+                Toggle.SetValueWithoutNotify(EditorPrefs.GetBool(_saveKey));
+            }
+
             AlignChildrenDisplay(Value);
         }
 

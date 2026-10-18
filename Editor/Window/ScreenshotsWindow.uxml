@@ -5,11 +5,11 @@
     <engine:ScrollView name="window" class="window">
         <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
         <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
-        <Screenshots.Editor.InlineFoldout value="true" name="folder-block">
+        <Screenshots.Editor.InlineFoldout value="false" name="folder-block" view-data-key="inline-foldout-folder">
             <Screenshots.Editor.FolderField name="active-folder-path" class="inline-foldout__child"/>
             <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R" class="inline-foldout__child"/>
         </Screenshots.Editor.InlineFoldout>
-        <Screenshots.Editor.InlineFoldout name="file-name" value="false">
+        <Screenshots.Editor.InlineFoldout name="file-name" value="true" view-data-key="inline-foldout-name">
             <engine:VisualElement name="file-name__control" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:VisualElement name="file-name__input" style="flex-grow: 1;">
                     <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
