@@ -1,21 +1,22 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/FolderField/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
-    <engine:VisualElement name="screen-record-window" style="flex-grow: 1; -unity-font-style: bold; font-size: 15px;">
+    <engine:ScrollView name="window" class="window">
         <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
-        <engine:EnumField label="Oriintation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
+        <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-field" binding-path="&lt;Orientation&gt;k__BackingField"/>
         <Screenshots.Editor.InlineFoldout value="true" name="folder-block">
-            <Screenshots.Editor.FolderField name="active-folder-path"/>
-            <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R"/>
+            <Screenshots.Editor.FolderField name="active-folder-path" class="inline-foldout__child"/>
+            <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R" class="inline-foldout__child"/>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout name="file-name">
-            <engine:VisualElement name="file-name__control" class="inline-field" style="flex-grow: 1;">
+            <engine:VisualElement name="file-name__control" class="inline-field inline-foldout__child" style="flex-grow: 1;">
                 <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
-                <engine:Label text="." name="file-name__dot"/>
-                <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField"/>
+                <engine:Label text="." name="file-name__dot" class="file-name__dot"/>
+                <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField" class="file-name__type"/>
                 <engine:Button text="R" name="file-name__reset-btn"/>
             </engine:VisualElement>
-            <engine:VisualElement name="file-name__docs" class="variables-legend" style="flex-grow: 1;">
+            <engine:VisualElement name="file-name__docs" class="variables-legend inline-foldout__child" style="flex-grow: 1;">
                 <engine:VisualElement class="variables-legend__row">
                     <engine:Label text="{P}" class="variables-legend__tag"/>
                     <engine:Label text="= Project name" class="variables-legend__desc"/>
@@ -54,9 +55,12 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
-        <engine:VisualElement name="footer-container" style="flex-grow: 1; font-size: 18px;">
+        <engine:VisualElement name="footer" class="footer" style="font-size: 18px;">
             <engine:Button text="Screenshot" name="screenshot-btn"/>
-            <engine:Button text="Clear Folder" name="clear-folder-btn"/>
+            <engine:VisualElement class="footer__row" style="flex-grow: 1;">
+                <engine:Button text="Remove All" name="clear-folder-btn"/>
+                <engine:Button text="Remove Last" name="remove-last-btn"/>
+            </engine:VisualElement>
         </engine:VisualElement>
-    </engine:VisualElement>
+    </engine:ScrollView>
 </engine:UXML>

@@ -47,7 +47,7 @@ namespace Screenshots.Editor
             _contentContainerInstance = this.Q<VisualElement>("content-block");
             _contentContainerInstance.RegisterCallback<GeometryChangedEvent>(OnContentGeometryChanged);
 
-            Toggle = this.Q<Toggle>("settings-block");
+            Toggle = this.Q<Toggle>();
             Toggle.RegisterValueChangedCallback(OnToggleValueChanged);
         
             RegisterCallback<AttachToPanelEvent>(OnAttachToPanel);

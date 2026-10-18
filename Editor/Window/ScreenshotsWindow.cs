@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -38,7 +39,9 @@ namespace Screenshots.Editor
         [MenuItem("Tools/Screenshots")]
         public static void OpenWindow()
         {
-            GetWindow<ScreenshotsWindow>("Screenshots").Show();
+            var window = GetWindow<ScreenshotsWindow>("Screenshots");
+            window.minSize = new Vector2(580, 300);
+            window.Show();
         }
 
         /// <summary>

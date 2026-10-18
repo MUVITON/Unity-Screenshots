@@ -1,48 +1,28 @@
-#screen-record-window {
-    margin-left: 18px;
-    margin-right: 15px;
-    margin-top: 15px;
-    font-size: 48px;
+.window {
+    padding-top: 5px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-bottom: 5px;
+    margin-top: 0;
 }
 
-#screen-record-window > * {
-    margin-bottom: 7px;
-}
-
-#screen-record-window #folder-path-container {
-    flex-direction: row;
-    justify-content: center;
-    align-content: auto;
-    flex-wrap: nowrap;
-    flex-basis: auto;
-}
-
-#screen-record-window #folder-path-container > * {
+.window > * {
+    margin-top: 2.5px;
     flex-grow: 1;
-}
-
-#screen-record-window #folder-path-field {
-    flex-grow: 1;
-    width: 80%;
-}
-
-#screen-record-window #footer-container {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: auto;
-    align-self: auto;
-    align-items: flex-start;
-}
-
-#screen-record-window #footer-container > Button {
-    font-size: 18px;
-    flex-grow: 1;
-    flex-shrink: 1;
+    margin-bottom: 2.5px;
 }
 
 .auto-mode-btn--active {
     background-color: var(--unity-colors-toolbar_button-background-checked);
     color: var(--unity-colors-toolbar_button-text-checked);
+}
+
+.file-name__dot {
+    -unity-text-align: lower-left;
+}
+
+.file-name__type {
+    width: 50px;
 }
 
 .variables-legend {
@@ -56,12 +36,12 @@
 }
 
 .variables-legend__row {
-    flex-direction: row; 
+    flex-direction: row;
 }
 
 .variables-legend__tag {
-    width: 20px; 
-    color: #999999;
+    width: 20px;
+    color: rgb(153, 153, 153);
     font-size: 11px;
     -unity-text-align: middle-left;
     margin: 1px 0;
@@ -69,11 +49,33 @@
 }
 
 .variables-legend__desc {
-    color: #999999;
+    color: rgb(153, 153, 153);
     font-size: 11px;
     -unity-text-align: middle-left;
     margin: 1px 0;
     padding: 0;
 }
 
+.footer {
+    flex-wrap: nowrap;
+    flex-direction: column;
+    max-width: 500px;
+    flex-grow: 1;
+    align-self: center;
+    flex-basis: auto;
+    width: 100%;
+}
 
+.footer > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.footer__row {
+    flex-direction: row;
+}
+
+.footer__row > * {
+    flex-grow: 1;
+    flex-shrink: 0;
+}
