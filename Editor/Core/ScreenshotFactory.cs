@@ -32,6 +32,9 @@ namespace Screenshots.Editor
 
         }
 
+
+        private static bool s_inProcess;
+
         private static Texture2D Get2DTexture(RenderTexture renderTexture)
         {
             RenderTexture.active = renderTexture;
@@ -57,31 +60,8 @@ namespace Screenshots.Editor
             };
         }
 
-        public static async Task<string> MakeScreenshot(
-            Camera camera,
-            Vector2Int size,
-            string folderPath,
-            string fileName,
-            ScreenshotType type
-        )
+        private static void ImportScreenshot(string path)
         {
-            string path = Path.Combine(folderPath, $"{fileName}.{type}");
-
-            if (!Directory.Exists(folderPath))
-                Directory.CreateDirectory(folderPath);
-
-            if (File.Exists(path))
-                return null;
-
-            RenderTexture texture = RenderTextureProvider.Get(size);
-
-            using (new CameraTextureScope(camera, texture))
-                camera.Render();
-
-            byte[] bytes = EncodeTexture(Get2DTexture(texture), type);
-
-            await File.WriteAllBytesAsync(path, bytes);
-
             string normalizedPath = path.Replace('\\', '/');
             if (normalizedPath.StartsWith(Application.dataPath))
             {
@@ -92,8 +72,55 @@ namespace Screenshots.Editor
             {
                 AssetDatabase.ImportAsset(normalizedPath);
             }
+        }
 
-            return path;
+        public static async Task<string> MakeScreenshot(
+            Camera camera,
+            Vector2Int size,
+            string folderPath,
+            string fileName,
+            ScreenshotType type
+        )
+        {
+            if (s_inProcess)
+            {
+                ScreenshotsLogger.Warn("A screenshot capture is already in progress. Please wait.");
+                return null;
+            }
+
+            string path = Path.Combine(folderPath, $"{fileName}.{type}");
+
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            if (File.Exists(path))
+            {
+                ScreenshotsLogger.Warn($"File '{fileName}.{type}' already exists. Capture cancelled to prevent overwriting.");
+                return null;
+            }
+
+            s_inProcess = true;
+
+            try
+            {
+                RenderTexture texture = RenderTextureProvider.Get(size);
+
+                using (new CameraTextureScope(camera, texture))
+                    camera.Render();
+
+                byte[] bytes = EncodeTexture(Get2DTexture(texture), type);
+
+                await File.WriteAllBytesAsync(path, bytes);
+
+                ImportScreenshot(path);
+
+                ScreenshotsLogger.Log($"Successfully saved to: {path}");
+                return path;
+            }
+            finally
+            {
+                s_inProcess = false;
+            }
         }
 
     }
