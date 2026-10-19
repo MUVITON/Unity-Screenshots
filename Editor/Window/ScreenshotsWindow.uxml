@@ -84,7 +84,7 @@
         <engine:VisualElement name="footer" class="footer" style="font-size: 18px;">
             <engine:Button text="Screenshot" name="screenshot-btn"/>
             <engine:VisualElement class="footer__row" style="flex-grow: 1;">
-                <engine:Button text="Remove All" name="clear-folder-btn"/>
+                <engine:Button text="Remove All" name="remove-all-btn"/>
                 <engine:Button text="Remove Last" name="remove-last-btn"/>
             </engine:VisualElement>
         </engine:VisualElement>

@@ -10,34 +10,34 @@ namespace Screenshots.Editor
         where TCacher  : TextureProvider<TTexture, TCacher>, new()
     {
 
-        private static TCacher _instance = new();
+        private static TCacher s_instance = new();
 
-        private static Queue<(Vector2Int, TTexture)> _cache;
+        private static Queue<(Vector2Int, TTexture)> s_cache;
 
         protected static void ResetCache()
         {
-            if (_cache == null) return;
+            if (s_cache == null) return;
 
-            while (_cache.Count > 0)
-                _instance.Destroy(_cache.Dequeue().Item2);
+            while (s_cache.Count > 0)
+                s_instance.Destroy(s_cache.Dequeue().Item2);
         }
 
         public static TTexture Get(Vector2Int screenSize)
         {
-            _cache ??= new Queue<(Vector2Int, TTexture)>();
+            s_cache ??= new Queue<(Vector2Int, TTexture)>();
 
-            foreach ((Vector2Int size, TTexture texture) in _cache)
+            foreach ((Vector2Int size, TTexture texture) in s_cache)
             {
                 if (size == screenSize)
                     return texture;
             }
 
-            if (_cache.Count > 1)
-                _instance.Destroy(_cache.Dequeue().Item2);
+            if (s_cache.Count > 1)
+                s_instance.Destroy(s_cache.Dequeue().Item2);
 
-            var newTexture = _instance.Create(screenSize);
+            var newTexture = s_instance.Create(screenSize);
 
-            _cache.Enqueue((screenSize, newTexture));
+            s_cache.Enqueue((screenSize, newTexture));
 
             return newTexture;
         }

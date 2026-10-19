@@ -20,9 +20,9 @@ namespace Screenshots.Editor
             public CameraTextureScope(Camera camera, RenderTexture texture)
             {
                 _camera  = camera;
-                _texture = camera.targetTexture;
+                _texture = _camera.targetTexture;
 
-                camera.targetTexture = texture;
+                _camera.targetTexture = texture;
             }
 
             public void Dispose() 
@@ -55,26 +55,20 @@ namespace Screenshots.Editor
                 ScreenshotType.png => texture.EncodeToPNG(),
                 ScreenshotType.jpg => texture.EncodeToJPG(),
                 ScreenshotType.tga => texture.EncodeToTGA(),
-                ScreenshotType.exp => texture.EncodeToEXR(),
+                ScreenshotType.exr => texture.EncodeToEXR(),
                 _ => throw new NotImplementedException(nameof(type))
             };
         }
 
         private static void ImportScreenshot(string path)
         {
-            string normalizedPath = path.Replace('\\', '/');
-            if (normalizedPath.StartsWith(Application.dataPath))
-            {
-                string relativePath = "Assets" + normalizedPath.Substring(Application.dataPath.Length);
+            string relativePath = ProjectPathProvider.Get(path);
+
+            if (!string.IsNullOrEmpty(relativePath))
                 AssetDatabase.ImportAsset(relativePath);
-            }
-            else if (normalizedPath.StartsWith("Assets/"))
-            {
-                AssetDatabase.ImportAsset(normalizedPath);
-            }
         }
 
-        public static async Task<string> MakeScreenshot(
+        public static async Task<string> CaptureScreenshot(
             Camera camera,
             Vector2Int size,
             string folderPath,
@@ -109,6 +103,8 @@ namespace Screenshots.Editor
                     camera.Render();
 
                 byte[] bytes = EncodeTexture(Get2DTexture(texture), type);
+
+                s_inProcess = false;
 
                 await File.WriteAllBytesAsync(path, bytes);
 

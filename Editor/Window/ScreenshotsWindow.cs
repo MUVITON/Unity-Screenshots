@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
-using System.IO;
-using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -27,6 +24,7 @@ namespace Screenshots.Editor
         private CustomResolutionController _customResolution;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
+        private FileWiperController _wiper = new();
         private EnumField _fileType;
         private Button _screenshotBtn;
 
@@ -61,7 +59,6 @@ namespace Screenshots.Editor
             root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
             InitCamera(root);
-            InitFooter(root);
 
             var prop = so.FindProperty("<CustomResolution>k__BackingField");
             prop.NextVisible(true);
@@ -93,7 +90,15 @@ namespace Screenshots.Editor
                 root.Q<Button>("file-name__reset-btn")
             );
 
+            _wiper.Bind(
+                root.Q<Button>("remove-last-btn"),
+                root.Q<Button>("remove-all-btn")
+            );
+
             _fileType = root.Q<EnumField>("file-name__type");
+
+            _screenshotBtn = root.Q<Button>("screenshot-btn");
+            _screenshotBtn.clicked += CaptureScreenshot;
         }
 
         /// <summary>
@@ -107,25 +112,13 @@ namespace Screenshots.Editor
         }
 
         /// <summary>
-        /// Initializes the footer buttons.
-        /// </summary>
-        /// <param name="root">The root VisualElement of the window.</param>
-        private void InitFooter(VisualElement root)
-        {
-            _screenshotBtn = root.Q<Button>("screenshot-btn");
-            _screenshotBtn.clicked += MakeScreenshot;
-
-            root.Q<Button>("clear-folder-btn").clicked += ClearFolder;
-        }
-
-        /// <summary>
         /// Handles key down events. Triggers screenshot capture when Ctrl+E is pressed.
         /// </summary>
         /// <param name="e">The key down event data.</param>
         private void KeyDownHandler(KeyDownEvent e)
         {
             if (e.ctrlKey && e.keyCode == KeyCode.E)
-                MakeScreenshot();
+                CaptureScreenshot();
         }
 
         #endregion
@@ -157,43 +150,32 @@ namespace Screenshots.Editor
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
         /// </summary>
-        private async void MakeScreenshot()
+        private async void CaptureScreenshot()
         {
-            Camera camera = _camera ?? SceneView.lastActiveSceneView.camera;
+            Camera camera = _camera ?? SceneView.lastActiveSceneView?.camera;
+
+            if (camera == null)
+                camera = Camera.main;
 
             _screenshotBtn.SetEnabled(false);
 
             try
             {
-                string path = await ScreenshotFactory.MakeScreenshot(
+                string path = await ScreenshotFactory.CaptureScreenshot(
                     camera,
                     GetSize(),
                     _folderPath.Path,
                     _fileName.Value,
                     (ScreenshotType)_fileType.value
                 );
+
+                if (!string.IsNullOrEmpty(path))
+                    _wiper.AddPath(path);
             }
             finally
             {
                 _screenshotBtn.SetEnabled(true);
             }
-        }
-
-        /// <summary>
-        /// Clears all files from the specified folder.
-        /// </summary>
-        private void ClearFolder()
-        {
-            //string folderWithSeparator = _folderPath.Path + Path.DirectorySeparatorChar;
-            //if (!Directory.Exists(folderWithSeparator))
-            //    return;
-
-            //DirectoryInfo di = new DirectoryInfo(folderWithSeparator);
-
-            //foreach (FileInfo file in di.GetFiles())
-            //{
-            //    file.Delete();
-            //}
         }
 
         #endregion

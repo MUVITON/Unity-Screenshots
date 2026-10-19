@@ -16,8 +16,8 @@ namespace Screenshots.Editor
         [InspectorName("tga")]
         tga,
 
-        [InspectorName("exp")]
-        exp
+        [InspectorName("exr")]
+        exr
 
     }
 
