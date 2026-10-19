@@ -20,6 +20,10 @@ namespace Screenshots.Editor
         public PortraitResolution PortraitResolution { get; set; }
 
         [field: SerializeField, Tooltip("")]
+        public Vector2 CustomResolution { get; set; } 
+            = LandscapeResolutionProvider.GetSize(LandscapeResolution.FullHD);
+
+        [field: SerializeField, Tooltip("")]
         public string FolderPath { get; set; }
 
         [field: SerializeField, Tooltip("")]

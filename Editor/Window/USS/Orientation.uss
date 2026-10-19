@@ -1,5 +1,63 @@
-.resolution__control {
+.resolution__controller {
     flex-grow: 1;
+}
+
+.custom-resolution-block {
+    flex-direction: row;
+}
+
+.dimension_block {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.dimension_block--width {
+    margin-right: 25px;
+}
+
+.dimension_block__field {
+    flex-grow: 1;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.dimension_block__field > Label {
+    min-width: auto;
+    width: 15px;
+}
+
+.dimension_block__field > .unity-base-field__input {
+    flex-basis: 1px;
+}
+
+.icon-lock {
+    background-image: url("project://database/Library/unity%20editor%20resources?fileID=9191875329150317974&guid=0000000000000000d000000000000000&type=0#IN LockButton act@2x");
+    background-repeat: no-repeat no-repeat;
+    background-size: 83% 76%;
+}
+
+.icon-btn--selected.icon-lock {
+    background-image: url("project://database/Library/unity%20editor%20resources?fileID=3623881695602462711&guid=0000000000000000d000000000000000&type=0#IN LockButton on@2x");
+}
+
+.swap-btn {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.swap-btn > * {
+    flex-grow: 1;
+    flex-direction: row;
+    background-image: url("project://database/Packages/com.unity.memoryprofiler/Editor/UI/Icons/d_SwapVertical@2x.png?fileID=2800000&guid=78f45476f5d00ec4eba5239fe9f8a53c&type=3#d_SwapVertical@2x");
+    background-size: 70% 70%;
+    rotate: 90deg;
+}
+
+.resolution-reset-btn {
+    margin-right: 0;
 }
 
 .orientation--landscape .landscape-selector {
@@ -10,10 +68,30 @@
     display: none;
 }
 
+.orientation--landscape .custom-resolution-block {
+    display: none;
+}
+
 .orientation--portrait .landscape-selector {
     display: none;
 }
 
 .orientation--portrait .portrait-selector {
+    display: flex;
+}
+
+.orientation--portrait .custom-resolution-block {
+    display: none;
+}
+
+.orientation--custom .landscape-selector {
+    display: none;
+}
+
+.orientation--custom .portrait-selector {
+    display: none;
+}
+
+.orientation--custom .custom-resolution-block {
     display: flex;
 }

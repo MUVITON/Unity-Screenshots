@@ -10,7 +10,8 @@ namespace Screenshots.Editor
     {
 
         Landscape,
-        Portrait
+        Portrait,
+        Custom
 
     }
 

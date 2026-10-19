@@ -7,12 +7,25 @@
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/FolderField/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
     <engine:ScrollView name="window" class="window">
         <editor:ObjectField label="Camera:" name="camera-source" type="UnityEngine.Camera, UnityEngine.CoreModule"/>
-        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--landscape">
+        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--custom">
             <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" class="inline-foldout__child"/>
             <engine:VisualElement name="resolution-block" class="inline-foldout__child unity-base-field" style="flex-grow: 1;">
                 <engine:Label text="Resolution:" class="unity-base-field__label"/>
-                <engine:EnumField label="" value="FullHD" type="Screenshots.Editor.LandscapeResolution, Screenshots.Editor" name="landscape-selector" binding-path="&lt;LandscapeResolution&gt;k__BackingField" class="resolution__control landscape-selector"/>
-                <engine:EnumField label="" value="IPhoneProMax" type="Screenshots.Editor.PortraitResolution, Screenshots.Editor" name="portrait-selector" binding-path="&lt;PortraitResolution&gt;k__BackingField" class="resolution__control portrait-selector"/>
+                <engine:EnumField label="" value="FullHD" type="Screenshots.Editor.LandscapeResolution, Screenshots.Editor" name="landscape-selector" binding-path="&lt;LandscapeResolution&gt;k__BackingField" class="landscape-selector resolution__controller"/>
+                <engine:EnumField label="" value="IPhoneProMax" type="Screenshots.Editor.PortraitResolution, Screenshots.Editor" name="portrait-selector" binding-path="&lt;PortraitResolution&gt;k__BackingField" class="portrait-selector resolution__controller"/>
+                <engine:VisualElement name="custom-controller" class="custom-resolution-block" style="flex-grow: 1;">
+                    <engine:VisualElement name="width-block" class="dimension_block dimension_block--width">
+                        <engine:UnsignedIntegerField label="W" value="42" name="width-field" binding-path="" class="dimension_block__field"/>
+                        <engine:Button text="" name="lock-btn" focusable="false" class="icon-btn icon-lock"/>
+                    </engine:VisualElement>
+                    <engine:VisualElement name="height-block" class="dimension_block">
+                        <engine:UnsignedIntegerField label="H" value="42" name="height-field" binding-path="" class="dimension_block__field"/>
+                        <engine:Button text="" name="swap-btn" focusable="false" class="icon-btn swap-btn">
+                            <engine:VisualElement style="flex-grow: 1;"/>
+                        </engine:Button>
+                        <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn resolution-reset-btn"/>
+                    </engine:VisualElement>
+                </engine:VisualElement>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout value="false" name="folder-block" view-data-key="inline-foldout-folder">

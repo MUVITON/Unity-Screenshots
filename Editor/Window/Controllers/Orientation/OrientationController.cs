@@ -12,7 +12,8 @@ namespace Screenshots.Editor
         private readonly Dictionary<ScreenshotOrientation, string> _modeClassNames = new()
         {
             { ScreenshotOrientation.Landscape, "orientation--landscape" },
-            { ScreenshotOrientation.Portrait,  "orientation--portrait"  }
+            { ScreenshotOrientation.Portrait,  "orientation--portrait"  },
+            { ScreenshotOrientation.Custom,    "orientation--custom"  }
         };
 
 

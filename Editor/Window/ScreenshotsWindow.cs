@@ -23,6 +23,7 @@ namespace Screenshots.Editor
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
         private OrientationController _orientation;
+        private CustomResolutionController _customResolution;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
         private EnumField _fileType;
@@ -60,9 +61,17 @@ namespace Screenshots.Editor
             InitCamera(root);
             InitFooter(root);
 
+            var prop = so.FindProperty("<CustomResolution>k__BackingField");
+            prop.NextVisible(true);
+
             _orientation = new OrientationController(
                 root.Q<VisualElement>("orientation-block"),
                 root.Q<EnumField>("orientation-selector")
+            );
+
+            _customResolution = new CustomResolutionController(
+                root.Q<VisualElement>("custom-controller"),
+                so.FindProperty("<CustomResolution>k__BackingField")
             );
 
             new DefaultFolderPathController(
@@ -130,12 +139,13 @@ namespace Screenshots.Editor
 
         #region Screenshots
 
-        private (int, int) GetSize()
+        private Vector2Int GetSize()
         {
             return _orientation.Value switch
             {
                 ScreenshotOrientation.Landscape => LandscapeResolutionProvider.GetSize(ScreenshotsConfig.instance.LandscapeResolution),
                 ScreenshotOrientation.Portrait  => PortraitResolutionProvider.GetSize(ScreenshotsConfig.instance.PortraitResolution),
+                ScreenshotOrientation.Custom    => _customResolution.Value,
                 _ => throw new InvalidOperationException()
             };
         }
@@ -146,8 +156,7 @@ namespace Screenshots.Editor
         private async void MakeScreenShot()
         {
             Camera camera = _camera ?? SceneView.lastActiveSceneView.camera;
-            (int width, int height) = GetSize();
-            RenderTexture renderTexture = RenderTextureProvider.Get(new Vector2Int(width, height));
+            RenderTexture renderTexture = RenderTextureProvider.Get(GetSize());
 
             RenderTexture oldRT = camera.targetTexture;
             camera.targetTexture = renderTexture;

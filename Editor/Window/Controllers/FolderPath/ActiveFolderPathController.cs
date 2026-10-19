@@ -22,8 +22,6 @@ namespace Screenshots.Editor
 
         #region State
 
-        private const string AutoModeBtnActiveClass = "auto-mode-btn--active";
-
         private readonly EditorSceneManager.SceneOpenedCallback _setDefaultPathByScene;
         private readonly Action<PrefabStage> _setDefaultPathByPrefab;
 
@@ -82,13 +80,13 @@ namespace Screenshots.Editor
 
         private void SetDefaultMode()
         {
-            Field.SecondButton.AddToClassList(AutoModeBtnActiveClass);
+            IconButtonSelectionController.ApplyState(Field.SecondButton, true);
             StartTrackSceneChange();
         }
 
         private void SetCustomMode()
         {
-            Field.SecondButton.RemoveFromClassList(AutoModeBtnActiveClass);
+            IconButtonSelectionController.ApplyState(Field.SecondButton, false);
             StopTrackSceneChange();
         }
 

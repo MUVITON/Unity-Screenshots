@@ -12,14 +12,19 @@
     margin-bottom: 3px;
 }
 
+.icon-btn {
+    height: 20px;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-width: 22px;
+}
 
-
-.auto-mode-btn--active {
+.icon-btn--selected {
     background-color: var(--unity-colors-highlight-background);
     color: var(--unity-colors-highlight-text);
 }
 
-.auto-mode-btn--active:hover {
+.icon-btn--selected:hover {
     background-color: var(--unity-colors-highlight-background-hover-lighter);
 }
 
