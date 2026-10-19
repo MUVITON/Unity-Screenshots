@@ -1,6 +1,5 @@
-﻿
+﻿using UnityEngine;
 
-using UnityEngine;
 
 namespace Screenshots.Editor
 {
@@ -12,7 +11,13 @@ namespace Screenshots.Editor
         png,
 
         [InspectorName("jpg")]
-        jpg
+        jpg,
+
+        [InspectorName("tga")]
+        tga,
+
+        [InspectorName("exp")]
+        exp
 
     }
 

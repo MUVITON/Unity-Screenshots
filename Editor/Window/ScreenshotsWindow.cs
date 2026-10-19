@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -27,6 +28,7 @@ namespace Screenshots.Editor
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
         private EnumField _fileType;
+        private Button _screenshotBtn;
 
         private Camera _camera;
 
@@ -110,7 +112,9 @@ namespace Screenshots.Editor
         /// <param name="root">The root VisualElement of the window.</param>
         private void InitFooter(VisualElement root)
         {
-            root.Q<Button>("screenshot-btn").clicked += MakeScreenShot;
+            _screenshotBtn = root.Q<Button>("screenshot-btn");
+            _screenshotBtn.clicked += MakeScreenshot;
+
             root.Q<Button>("clear-folder-btn").clicked += ClearFolder;
         }
 
@@ -121,7 +125,7 @@ namespace Screenshots.Editor
         private void KeyDownHandler(KeyDownEvent e)
         {
             if (e.ctrlKey && e.keyCode == KeyCode.E)
-                MakeScreenShot();
+                MakeScreenshot();
         }
 
         #endregion
@@ -153,36 +157,26 @@ namespace Screenshots.Editor
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
         /// </summary>
-        private async void MakeScreenShot()
+        private async void MakeScreenshot()
         {
             Camera camera = _camera ?? SceneView.lastActiveSceneView.camera;
-            RenderTexture renderTexture = RenderTextureProvider.Get(GetSize());
 
-            RenderTexture oldRT = camera.targetTexture;
-            camera.targetTexture = renderTexture;
-            camera.Render();
-            camera.targetTexture = oldRT;
+            _screenshotBtn.SetEnabled(false);
 
-            RenderTexture.active = renderTexture;
-            Texture2D tex = Texture2DProvider.Get(new(renderTexture.width, renderTexture.height));
-            tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-            tex.Apply();
-            RenderTexture.active = null;
-
-            byte[] bytes = tex.EncodeToPNG();
-            string folder = _folderPath.Path;
-            string fileName = _fileName.Value + ".png";
-            string path = Path.Combine(folder, fileName);
-
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            await File.WriteAllBytesAsync(path, bytes);
-
-            if (Regex.IsMatch(path, $@"^(Assets|{Application.dataPath})", RegexOptions.IgnoreCase))
-                AssetDatabase.ImportAsset(path);
-
-            Debug.Log("Saved to " + path);
+            try
+            {
+                string path = await ScreenshotFactory.MakeScreenshot(
+                    camera,
+                    GetSize(),
+                    _folderPath.Path,
+                    _fileName.Value,
+                    (ScreenshotType)_fileType.value
+                );
+            }
+            finally
+            {
+                _screenshotBtn.SetEnabled(true);
+            }
         }
 
         /// <summary>
