@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,8 @@ namespace Screenshots.Editor
         private float _aspect;
 
         public Vector2Int Value => new((int)_xCtrl.UValue, (int)_yCtrl.UValue);
+
+        public event Action<Vector2Int> Updated;
 
 
         public CustomResolutionController(VisualElement container, SerializedProperty property)
@@ -48,6 +51,7 @@ namespace Screenshots.Editor
                     _yCtrl.SetValueWithoutNotify(x / _aspect);
 
                 OnValueChanged();
+                Updated?.Invoke(Value);
             };
 
             _yCtrl.ValueChanged += y =>
@@ -56,6 +60,7 @@ namespace Screenshots.Editor
                     _xCtrl.SetValueWithoutNotify(y * _aspect);
 
                 OnValueChanged();
+                Updated?.Invoke(Value);
             };
 
             ResetAspect();
@@ -79,6 +84,8 @@ namespace Screenshots.Editor
 
             ResetAspect();
             OnValueChanged();
+
+            Updated?.Invoke(Value);
         }
 
         private void SwapDimensions()

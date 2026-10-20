@@ -1,4 +1,5 @@
-﻿using UnityEngine.UIElements;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 
 namespace Screenshots.Editor
@@ -14,6 +15,8 @@ namespace Screenshots.Editor
         private readonly EnumField _fileType;
         private readonly Button _resetBtn;
 
+        private Vector2Int _size;
+
         private string _value;
         public string Value
         {
@@ -27,9 +30,11 @@ namespace Screenshots.Editor
         public ScreenshotType Type => (ScreenshotType)_fileType.value;
 
 
-        public FileNameController(VisualElement container)
+        public FileNameController(VisualElement container, Vector2Int size)
         {
-            _preview = container.Q<Label>("file-name__preview");
+            _size = size;
+
+            _preview  = container.Q<Label>("file-name__preview");
             _fileType = container.Q<EnumField>("file-name__type");
 
             _field = container.Q<TextField>("file-name__field");
@@ -47,7 +52,7 @@ namespace Screenshots.Editor
         {
             string input = string.IsNullOrEmpty(_field.value) ? defaultName : _field.value;
 
-            _value = FileNameProvider.Get(input);
+            _value = FileNameProvider.Get(input, _size);
             _preview.text = _value;
 
             _resetBtn.SetEnabled(_field.value != defaultName);
@@ -62,6 +67,12 @@ namespace Screenshots.Editor
         private void ResetName()
         {
             _field.value = defaultName;
+        }
+
+        public void UpdateSize(Vector2Int size)
+        {
+            _size = size;
+            UpdateValue();
         }
 
     }

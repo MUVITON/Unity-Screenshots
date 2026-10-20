@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -8,7 +9,8 @@ namespace Screenshots.Editor
 
     public static class FileNameProvider
     {
-        public static string Get(string format)
+
+        public static string Get(string format, Vector2Int size)
         {
             if (string.IsNullOrEmpty(format))
                 return "Default";
@@ -27,6 +29,8 @@ namespace Screenshots.Editor
 
             sb.Replace("{S}", SceneManager.GetActiveScene().name);
             sb.Replace("{P}", UnityEngine.Application.productName);
+
+            sb.Replace("{R}", $"{size.x}x{size.y}");
 
             return sb.ToString();
         }

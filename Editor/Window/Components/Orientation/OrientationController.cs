@@ -26,15 +26,22 @@ namespace Screenshots.Editor
         public ScreenshotOrientation Value => (ScreenshotOrientation)_field.value;
         public Vector2Int Size => _size.GetValue(Value);
 
+        public event Action<Vector2Int> Updated;
+
 
         public OrientationController(VisualElement block, EnumField field, SerializedProperty customSizeProperty)
         {
             _block = block;
 
             _field = field;
-            _field.RegisterValueChangedCallback(e => AlignModeClassName(e.newValue));
+            _field.RegisterValueChangedCallback(e =>
+            {
+                AlignModeClassName(e.newValue);
+                Updated?.Invoke(Size);
+            });
 
-            _size = new(block, customSizeProperty);
+            _size = new SizeController(block, customSizeProperty);
+            _size.Updated += s => Updated?.Invoke(s);
 
             AlignModeClassName(_field.value);
         }

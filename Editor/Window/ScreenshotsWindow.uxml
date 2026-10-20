@@ -65,6 +65,10 @@
                     <engine:Label text="= Scene name" class="variables-legend__desc"/>
                 </engine:VisualElement>
                 <engine:VisualElement class="variables-legend__row">
+                    <engine:Label text="{R}" class="variables-legend__tag"/>
+                    <engine:Label text="= Resolution" class="variables-legend__desc"/>
+                </engine:VisualElement>
+                <engine:VisualElement class="variables-legend__row">
                     <engine:Label text="{Y}" class="variables-legend__tag"/>
                     <engine:Label text="= Year" class="variables-legend__desc"/>
                 </engine:VisualElement>

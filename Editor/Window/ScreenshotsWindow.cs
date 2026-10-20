@@ -63,6 +63,7 @@ namespace Screenshots.Editor
                 root.Q<EnumField>("orientation-selector"),
                 so.FindProperty("<CustomResolution>k__BackingField")
             );
+            _orientation.Updated += s => _fileName.UpdateSize(s);
 
             _fileFolder = new FileFolderController(
                 root.Q<VisualElement>("folder-block"),
@@ -71,7 +72,9 @@ namespace Screenshots.Editor
             );
 
             _fileName = new FileNameController(
-                root.Q<VisualElement>("file-name__controller"));
+                root.Q<VisualElement>("file-name__controller"),
+                _orientation.Size
+            );
 
             _wiper.Bind(
                 root.Q<Button>("remove-last-btn"),
