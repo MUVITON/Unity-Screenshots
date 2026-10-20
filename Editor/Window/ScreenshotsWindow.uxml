@@ -33,7 +33,7 @@
                 </engine:VisualElement>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
-        <Screenshots.Editor.InlineFoldout value="true" name="folder-block" view-data-key="inline-foldout-folder">
+        <Screenshots.Editor.InlineFoldout value="false" name="folder-block" view-data-key="inline-foldout-folder">
             <engine:VisualElement name="active-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" tooltip="The active destination path where the screenshot file will be saved." class="inline-field__input"/>
                 <engine:Button text="..." name="select-btn" focusable="false" tooltip="Opens a file explorer to select the destination directory." class="icon-btn"/>
