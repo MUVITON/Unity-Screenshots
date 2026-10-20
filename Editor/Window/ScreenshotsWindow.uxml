@@ -104,6 +104,7 @@
                 <engine:Button text="Remove All" name="remove-all-btn" tooltip="Deletes all screenshots captured and tracked during the current session."/>
                 <engine:Button text="Remove Last" name="remove-last-btn" tooltip="Deletes the most recently captured screenshot from the disk."/>
             </engine:VisualElement>
+            <engine:Toggle label="" name="open-after-capture" view-data-key="open-after-capture" text="Open folder after capture" value="true" tooltip="Automatically reveals the saved screenshot in your OS file browser after a successful capture." class="open-after-capture"/>
         </engine:VisualElement>
     </engine:ScrollView>
     <engine:Label text="&lt;a href=&quot;https://github.com/MUVITON/Unity-Screenshots&quot;&gt;Documentation &amp; Source Code&lt;/a&gt;" name="doc-link" selectable="false" focusable="false" class="doc-link"/>

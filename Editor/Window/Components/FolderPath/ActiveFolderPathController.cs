@@ -121,7 +121,7 @@ namespace Screenshots.Editor
         /// </summary>
         private void SetDefaultMode()
         {
-            IconButtonSelectionController.ApplyState(_autoModeBtn, true);
+            IconButtonSelectionController.ApplyClass(_autoModeBtn, true);
             StartTrackSceneChange();
         }
 
@@ -130,7 +130,7 @@ namespace Screenshots.Editor
         /// </summary>
         private void SetCustomMode()
         {
-            IconButtonSelectionController.ApplyState(_autoModeBtn, false);
+            IconButtonSelectionController.ApplyClass(_autoModeBtn, false);
             StopTrackSceneChange();
         }
 

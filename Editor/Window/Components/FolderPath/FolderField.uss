@@ -5,3 +5,13 @@
 .inline-field > .inline-field__input {
     flex-grow: 1;
 }
+
+.open-after-capture {
+    font-size: 10px;
+    align-self: center;
+    margin-top: 6px;
+}
+
+.open-after-capture .unity-toggle__checkmark {
+    margin-right: 4px;
+}

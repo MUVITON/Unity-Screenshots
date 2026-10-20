@@ -31,6 +31,7 @@ namespace Screenshots.Editor
         private FileFolderController _fileFolder;
         private FileNameController _fileName;
         private Button _screenshotBtn;
+        private OpenAfterCaptureController _openAfterCapture;
 
         /// <summary>
         /// Tracks whether a screenshot capture is currently in progress to prevent overlapping requests.
@@ -101,6 +102,8 @@ namespace Screenshots.Editor
 
             _screenshotBtn = root.Q<Button>("screenshot-btn");
             _screenshotBtn.clicked += CaptureScreenshot;
+
+            _openAfterCapture = new OpenAfterCaptureController(root.Q<Toggle>("open-after-capture"));
         }
 
         /// <summary>
@@ -144,7 +147,10 @@ namespace Screenshots.Editor
                 );
 
                 if (!string.IsNullOrEmpty(path))
+                {
                     _wiper.AddPath(path);
+                    _openAfterCapture.OpenPath(path);
+                }
             }
             finally
             {
