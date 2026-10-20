@@ -1,12 +1,12 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Camera.uss?fileID=7433441132597879392&amp;guid=33f57deeed3520e4aa63aae8afa045d8&amp;type=3#Camera"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Orientation.uss?fileID=7433441132597879392&amp;guid=4acee2386476f4541a33d5421c1e378d&amp;type=3#Orientation"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/FileName.uss?fileID=7433441132597879392&amp;guid=ee51c5012ce3b2a4eaf409e1f2e0ceeb&amp;type=3#FileName"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Controllers/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/DocLink.uss?fileID=7433441132597879392&amp;guid=2a13a1241e00c374f8eec0d47d5d87fd&amp;type=3#DocLink"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/Camera/Camera.uss?fileID=7433441132597879392&amp;guid=33f57deeed3520e4aa63aae8afa045d8&amp;type=3#Camera"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/Orientation/Orientation.uss?fileID=7433441132597879392&amp;guid=4acee2386476f4541a33d5421c1e378d&amp;type=3#Orientation"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/FileName/FileName.uss?fileID=7433441132597879392&amp;guid=ee51c5012ce3b2a4eaf409e1f2e0ceeb&amp;type=3#FileName"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/Footer/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/General/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/DocLink.uss?fileID=7433441132597879392&amp;guid=2a13a1241e00c374f8eec0d47d5d87fd&amp;type=3#DocLink"/>
     <engine:ScrollView name="window" class="window">
         <engine:VisualElement name="camera-block" class="camera__block inline-foldout__content" style="flex-grow: 1;">
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" tooltip="Selects the target camera to render the screenshot. If left unassigned, the active Scene View camera will be used." class="inline-foldout__child"/>

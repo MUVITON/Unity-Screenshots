@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/General/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
     <ui:Toggle label="" name="" value="false" class="inline-foldout">
         <ui:VisualElement name="content-block" class="inline-foldout__content"/>
     </ui:Toggle>
