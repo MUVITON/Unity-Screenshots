@@ -18,6 +18,10 @@ namespace Screenshots.Editor
 
         #region State
 
+        private static Vector2 MinWindowSize     = new Vector2(580, 350);
+        private static Vector2 DesiredWindowSize = new Vector2(580, 520);
+
+
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
@@ -46,7 +50,16 @@ namespace Screenshots.Editor
         public static void OpenWindow()
         {
             var window = GetWindow<ScreenshotsWindow>("Screenshots");
-            window.minSize = new Vector2(580, 350);
+
+            window.minSize = MinWindowSize;
+
+            Rect mainWindow = EditorGUIUtility.GetMainWindowPosition();
+
+            float x = mainWindow.x + (mainWindow.width - DesiredWindowSize.x) * 0.5f;
+            float y = mainWindow.y + (mainWindow.height - DesiredWindowSize.y) * 0.5f;
+
+            window.position = new Rect(x, y, DesiredWindowSize.x, DesiredWindowSize.y);
+
             window.Show();
         }
 
