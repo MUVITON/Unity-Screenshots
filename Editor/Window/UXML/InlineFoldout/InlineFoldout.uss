@@ -28,6 +28,7 @@
 .inline-foldout__child {
     margin-top: 2px;
     margin-bottom: 2px;
+    margin-right: 0;
 }
 
 .inline-foldout__child > .unity-base-field {

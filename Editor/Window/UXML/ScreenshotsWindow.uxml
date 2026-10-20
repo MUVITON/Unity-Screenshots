@@ -11,7 +11,7 @@
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" class="inline-foldout__child"/>
             <engine:HelpBox text="Scene View camera will be used" button-text="" message-type="Info" language-direction="Inherit" name="scene-view-info" class="scene-view-info"/>
         </engine:VisualElement>
-        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--custom">
+        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--custom orientation-block">
             <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" class="inline-foldout__child"/>
             <engine:VisualElement name="resolution-block" class="inline-foldout__child unity-base-field" style="flex-grow: 1;">
                 <engine:Label text="Resolution:" class="unity-base-field__label"/>
@@ -20,28 +20,28 @@
                 <engine:VisualElement name="custom-controller" class="custom-resolution-block" style="flex-grow: 1;">
                     <engine:VisualElement name="width-block" class="dimension_block dimension_block--width">
                         <engine:UnsignedIntegerField label="W" value="42" name="width-field" binding-path="" class="dimension_block__field"/>
-                        <engine:Button text="" name="lock-btn" focusable="false" class="icon-btn icon-lock"/>
+                        <engine:Button text="" name="lock-btn" focusable="false" class="icon-btn icon-lock icon-btn--constant-width"/>
                     </engine:VisualElement>
                     <engine:VisualElement name="height-block" class="dimension_block">
                         <engine:UnsignedIntegerField label="H" value="42" name="height-field" binding-path="" class="dimension_block__field"/>
                         <engine:Button text="" name="swap-btn" focusable="false" class="icon-btn swap-btn">
                             <engine:VisualElement style="flex-grow: 1;"/>
                         </engine:Button>
-                        <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn resolution-reset-btn"/>
+                        <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn resolution-reset-btn icon-btn--right icon-btn--constant-width"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
-        <Screenshots.Editor.InlineFoldout value="false" name="folder-block" view-data-key="inline-foldout-folder">
+        <Screenshots.Editor.InlineFoldout value="true" name="folder-block" view-data-key="inline-foldout-folder">
             <engine:VisualElement name="active-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
-                <engine:Button text="..." name="select-btn" focusable="false"/>
-                <engine:Button text="A" name="auto-mode-btn" focusable="false"/>
+                <engine:Button text="..." name="select-btn" focusable="false" class="icon-btn"/>
+                <engine:Button text="A" name="auto-mode-btn" focusable="false" class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
             <engine:VisualElement name="default-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:TextField label="Default Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
-                <engine:Button text="..." name="select-btn" focusable="false"/>
-                <engine:Button text="R" name="reset-btn" focusable="false"/>
+                <engine:Button text="..." name="select-btn" focusable="false" class="icon-btn"/>
+                <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout name="file-name" value="true" view-data-key="inline-foldout-name">
@@ -52,7 +52,7 @@
                 </engine:VisualElement>
                 <engine:Label text="." name="file-name__dot" class="file-name__dot"/>
                 <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField" class="file-name__type"/>
-                <engine:Button text="R" name="file-name__reset-btn"/>
+                <engine:Button text="R" name="file-name__reset-btn" class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
             <engine:VisualElement name="file-name__docs" class="variables-legend inline-foldout__child" style="flex-grow: 1;">
                 <engine:VisualElement class="variables-legend__row">

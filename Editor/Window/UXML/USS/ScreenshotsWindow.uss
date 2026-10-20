@@ -19,6 +19,15 @@
     min-width: 22px;
 }
 
+.icon-btn--constant-width {
+    width: 22px;
+    min-width: auto;
+}
+
+.icon-btn--right {
+    margin-right: 0;
+}
+
 .icon-btn--selected {
     background-color: var(--unity-colors-highlight-background);
     color: var(--unity-colors-highlight-text);
@@ -27,5 +36,3 @@
 .icon-btn--selected:hover {
     background-color: var(--unity-colors-highlight-background-hover-lighter);
 }
-
-
