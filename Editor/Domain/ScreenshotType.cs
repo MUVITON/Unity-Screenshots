@@ -4,7 +4,10 @@
 namespace Screenshots.Editor
 {
 
-    public enum ScreenshotType
+    /// <summary>
+    /// Defines the supported image file formats for saving screenshots.
+    /// </summary>
+    internal enum ScreenshotType
     {
 
         [InspectorName("png")]

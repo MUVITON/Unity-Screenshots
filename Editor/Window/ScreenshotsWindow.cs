@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEditor.ShortcutManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -9,10 +10,10 @@ namespace Screenshots.Editor
 {
 
     /// <summary>
-    /// Editor window for capturing screenshots.
-    /// Provides options to select a camera source, screen orientation, and destination folder.
+    /// The main Editor window for capturing screenshots.
+    /// Provides a unified UI to select a camera source, screen orientation, and destination folder.
     /// </summary>
-    public class ScreenshotsWindow : EditorWindow
+    public sealed class ScreenshotsWindow : EditorWindow
     {
 
         #region State
@@ -27,6 +28,10 @@ namespace Screenshots.Editor
         private FileNameController _fileName;
         private Button _screenshotBtn;
 
+        /// <summary>
+        /// Tracks whether a screenshot capture is currently in progress to prevent overlapping requests.
+        /// </summary>
+        [NonSerialized]
         private bool _inProcess;
 
         #endregion
@@ -35,18 +40,18 @@ namespace Screenshots.Editor
         #region Initialization
 
         /// <summary>
-        /// Opens the Screen Record window.
+        /// Opens the Screenshots tool window from the Unity top menu.
         /// </summary>
         [MenuItem("Tools/Screenshots")]
         public static void OpenWindow()
         {
             var window = GetWindow<ScreenshotsWindow>("Screenshots");
-            window.minSize = new Vector2(580, 300);
+            window.minSize = new Vector2(580, 350);
             window.Show();
         }
 
         /// <summary>
-        /// Creates and initializes the UI elements of the window.
+        /// Creates and initializes the UI elements of the window, binding them to the configuration singleton.
         /// </summary>
         public void CreateGUI()
         {
@@ -85,6 +90,10 @@ namespace Screenshots.Editor
             _screenshotBtn.clicked += CaptureScreenshot;
         }
 
+        /// <summary>
+        /// A global shortcut (F12) to capture a screenshot without clicking the UI button.
+        /// Only functions if the Screenshots window is currently active in the layout.
+        /// </summary>
         [Shortcut("Screenshots/Capture Screenshot", KeyCode.F12)]
         public static void GlobalCaptureShortcut()
         {
@@ -98,18 +107,7 @@ namespace Screenshots.Editor
         #endregion
 
 
-        #region Disable
-
-        private void OnDisable()
-        {
-            _camera.Dispose();
-            _fileFolder.Dispose();
-        }
-
-        #endregion
-
-
-        #region Capture Handler
+        #region Capture
 
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
@@ -140,6 +138,20 @@ namespace Screenshots.Editor
                 _inProcess = false;
                 _screenshotBtn.SetEnabled(true);
             }
+        }
+
+        #endregion
+
+
+        #region Disable
+
+        /// <summary>
+        /// Cleans up resources, unsubscribes from events, and ensures memory is freed when the window closes.
+        /// </summary>
+        private void OnDisable()
+        {
+            _camera.Dispose();
+            _fileFolder.Dispose();
         }
 
         #endregion

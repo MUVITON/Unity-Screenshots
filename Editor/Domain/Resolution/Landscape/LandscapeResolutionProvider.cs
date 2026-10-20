@@ -5,6 +5,9 @@ using UnityEngine;
 namespace Screenshots.Editor
 {
 
+    /// <summary>
+    /// Provides a mapping from the <see cref="LandscapeResolution"/> enum values to their precise pixel dimensions.
+    /// </summary>
     internal static class LandscapeResolutionProvider
     {
 
@@ -19,6 +22,11 @@ namespace Screenshots.Editor
                 { LandscapeResolution.Ultrawide1440p, new(3440, 1440) }
             };
 
+        /// <summary>
+        /// Retrieves the pixel dimensions for a specified landscape resolution.
+        /// </summary>
+        /// <param name="type">The selected landscape resolution preset.</param>
+        /// <returns>A Vector2Int representing the width and height. Defaults to 1920x1080 if not found.</returns>
         public static Vector2Int GetSize(LandscapeResolution type)
         {
             if (_table.TryGetValue(type, out var size))

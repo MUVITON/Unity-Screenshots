@@ -4,19 +4,22 @@
 namespace Screenshots.Editor
 {
 
-    public enum PortraitResolution
+    /// <summary>
+    /// Defines standard portrait (vertical) resolutions commonly used for mobile devices and tablets.
+    /// </summary>
+    internal enum PortraitResolution
     {
 
-        [InspectorName("iPhone 15/14 Pro Max (1290 x 2796)")]
+        [InspectorName("iPhone 15 & 14 Pro Max (1290 x 2796)")]
         IPhoneProMax,
 
-        [InspectorName("iPhone 15/14 Pro (1179 x 2556)")]
+        [InspectorName("iPhone 15 & 14 Pro (1179 x 2556)")]
         IPhonePro,
 
-        [InspectorName("iPhone 13/14 (1170 x 2532)")]
+        [InspectorName("iPhone 13 & 14 (1170 x 2532)")]
         IPhoneStandard,
 
-        [InspectorName("iPhone SE / 8 (750 x 1334)")]
+        [InspectorName("iPhone SE & 8 (750 x 1334)")]
         IPhoneSE,
 
         [InspectorName("Android Flagship (1440 x 3088)")]

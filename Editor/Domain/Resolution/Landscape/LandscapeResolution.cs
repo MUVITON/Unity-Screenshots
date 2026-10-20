@@ -4,7 +4,10 @@
 namespace Screenshots.Editor
 {
 
-    public enum LandscapeResolution
+    /// <summary>
+    /// Defines standard landscape (horizontal) resolutions commonly used for desktop and web platforms.
+    /// </summary>
+    internal enum LandscapeResolution
     {
 
         [InspectorName("HD 720p (1280 x 720)")]
