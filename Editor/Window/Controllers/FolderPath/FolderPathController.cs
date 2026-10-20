@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -50,7 +51,9 @@ namespace Screenshots.Editor
             if (string.IsNullOrEmpty(folderPath))
                 return;
 
-            Property.stringValue = folderPath;
+            string normalizePath = ProjectPathProvider.GetForProject(folderPath);
+
+            Property.stringValue = string.IsNullOrEmpty(normalizePath) ? folderPath : normalizePath;
             Property.serializedObject.ApplyModifiedProperties();
         }
 

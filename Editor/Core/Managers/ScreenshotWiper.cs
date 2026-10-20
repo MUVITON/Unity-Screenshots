@@ -38,7 +38,7 @@ namespace Screenshots.Editor
 
             try
             {
-                string relativePath = ProjectPathProvider.Get(path);
+                string relativePath = ProjectPathProvider.GetForAsset(path);
 
                 if (!string.IsNullOrEmpty(relativePath))
                     return DeleteFromAssetDatabase(relativePath);

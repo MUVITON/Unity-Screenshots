@@ -62,7 +62,7 @@ namespace Screenshots.Editor
 
         private static void ImportScreenshot(string path)
         {
-            string relativePath = ProjectPathProvider.Get(path);
+            string relativePath = ProjectPathProvider.GetForAsset(path);
 
             if (!string.IsNullOrEmpty(relativePath))
                 AssetDatabase.ImportAsset(relativePath);

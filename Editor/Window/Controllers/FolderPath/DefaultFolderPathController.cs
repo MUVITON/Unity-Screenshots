@@ -28,8 +28,11 @@ namespace Screenshots.Editor
         {
             if (string.IsNullOrEmpty(property.stringValue))
                 SetDefaultPath();
-            
-            Field.Input.SetValueWithoutNotify(property.stringValue);
+
+            string value = property.stringValue;
+
+            Field.Input.SetValueWithoutNotify(value);
+            Field.SecondButton.SetEnabled(value != DefaultPath);
         }
 
     }
