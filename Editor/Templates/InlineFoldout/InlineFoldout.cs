@@ -52,6 +52,7 @@ namespace Screenshots.Editor
 
             _contentContainerInstance = this.Q<VisualElement>("content-block");
             _contentContainerInstance.RegisterCallback<GeometryChangedEvent>(OnContentGeometryChanged);
+            _contentContainerInstance.RegisterCallback<PointerDownEvent>(e => e.StopPropagation());
 
             Toggle = this.Q<Toggle>();
             Toggle.RegisterValueChangedCallback(OnToggleValueChanged);
