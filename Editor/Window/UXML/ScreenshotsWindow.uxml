@@ -94,7 +94,7 @@
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <engine:VisualElement name="footer" class="footer" style="font-size: 18px;">
-            <engine:Button text="Screenshot" name="screenshot-btn" tooltip="Captures and saves a screenshot using the specified settings (Shortcut: Ctrl+E)."/>
+            <engine:Button text="Screenshot" name="screenshot-btn" tooltip="Captures and saves a screenshot using the specified settings (Shortcut: F12)."/>
             <engine:VisualElement class="footer__row" style="flex-grow: 1;">
                 <engine:Button text="Remove All" name="remove-all-btn" tooltip="Deletes all screenshots captured and tracked during the current session."/>
                 <engine:Button text="Remove Last" name="remove-last-btn" tooltip="Deletes the most recently captured screenshot from the disk."/>

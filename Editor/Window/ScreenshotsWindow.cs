@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEditor.ShortcutManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -26,6 +27,8 @@ namespace Screenshots.Editor
         private FileNameController _fileName;
         private Button _screenshotBtn;
 
+        private bool _inProcess;
+
         #endregion
 
 
@@ -52,7 +55,6 @@ namespace Screenshots.Editor
 
             root.Add(_screenshotsWindowUXMLAsset.Instantiate());
             root.Bind(so);
-            root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
             _camera.Bind(root.Q<VisualElement>("camera-block"));
 
@@ -85,14 +87,14 @@ namespace Screenshots.Editor
             _screenshotBtn.clicked += CaptureScreenshot;
         }
 
-        /// <summary>
-        /// Handles key down events. Triggers screenshot capture when Ctrl+E is pressed.
-        /// </summary>
-        /// <param name="e">The key down event data.</param>
-        private void KeyDownHandler(KeyDownEvent e)
+        [Shortcut("Screenshots/Capture Screenshot", KeyCode.F12)]
+        public static void GlobalCaptureShortcut()
         {
-            if (e.ctrlKey && e.keyCode == KeyCode.E)
-                CaptureScreenshot();
+            if (HasOpenInstances<ScreenshotsWindow>())
+            {
+                var window = GetWindow<ScreenshotsWindow>("Screenshots");
+                window.CaptureScreenshot();
+            }
         }
 
         #endregion
@@ -116,6 +118,10 @@ namespace Screenshots.Editor
         /// </summary>
         private async void CaptureScreenshot()
         {
+            if (_inProcess)
+                return;
+
+            _inProcess = true;
             _screenshotBtn.SetEnabled(false);
 
             try
@@ -133,6 +139,7 @@ namespace Screenshots.Editor
             }
             finally
             {
+                _inProcess = false;
                 _screenshotBtn.SetEnabled(true);
             }
         }
