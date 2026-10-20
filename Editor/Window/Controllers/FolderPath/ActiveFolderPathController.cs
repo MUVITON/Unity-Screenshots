@@ -99,12 +99,14 @@ namespace Screenshots.Editor
         {
             EditorSceneManager.sceneOpened += _setDefaultPathByScene;
             PrefabStage.prefabStageOpened  += _setDefaultPathByPrefab;
+            PrefabStage.prefabStageClosing += _setDefaultPathByPrefab;
         }
 
         private void StopTrackSceneChange()
         {
             EditorSceneManager.sceneOpened -= _setDefaultPathByScene;
             PrefabStage.prefabStageOpened  -= _setDefaultPathByPrefab;
+            PrefabStage.prefabStageClosing -= _setDefaultPathByPrefab;
         }
 
         private void SetDefaultPathByScene(Scene scene, OpenSceneMode mode)
@@ -135,10 +137,27 @@ namespace Screenshots.Editor
                 SetMode(Mode.Custom);
             }
         }
+
         private void SetDefaultPath()
         {
-            Scene scene = SceneManager.GetActiveScene();
-            Field.Input.SetValueWithoutNotify($"{_defaultPath.stringValue}/{scene.name}");
+            string name = null;
+
+            PrefabStage stage = PrefabStageUtility.GetCurrentPrefabStage();
+
+            if (stage != null)
+            {
+                name = stage.scene.name;
+            } 
+            else
+            {
+                Scene scene = SceneManager.GetActiveScene();
+                name = scene.name;
+            }
+
+            if (string.IsNullOrEmpty(name))
+                name = "Untitled";
+
+            Field.Input.SetValueWithoutNotify($"{_defaultPath.stringValue}/{name}");
         }
 
         #endregion
