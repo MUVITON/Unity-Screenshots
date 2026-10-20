@@ -8,51 +8,51 @@
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Controllers/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
     <engine:ScrollView name="window" class="window">
         <engine:VisualElement name="camera-block" class="camera__block inline-foldout__content" style="flex-grow: 1;">
-            <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" class="inline-foldout__child"/>
+            <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" tooltip="Selects the target camera to render the screenshot. If left unassigned, the active Scene View camera will be used." class="inline-foldout__child"/>
             <engine:HelpBox text="Scene View camera will be used" button-text="" message-type="Info" language-direction="Inherit" name="scene-view-info" class="scene-view-info"/>
         </engine:VisualElement>
         <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--custom orientation-block">
-            <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" class="inline-foldout__child"/>
+            <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" tooltip="Defines the predefined aspect ratio or allows setting a custom resolution for the capture." class="inline-foldout__child"/>
             <engine:VisualElement name="resolution-block" class="inline-foldout__child unity-base-field" style="flex-grow: 1;">
-                <engine:Label text="Resolution:" class="unity-base-field__label"/>
+                <engine:Label text="Resolution:" tooltip="The exact width and height of the screenshot in pixels." class="unity-base-field__label"/>
                 <engine:EnumField label="" value="FullHD" type="Screenshots.Editor.LandscapeResolution, Screenshots.Editor" name="landscape-selector" binding-path="&lt;LandscapeResolution&gt;k__BackingField" class="landscape-selector resolution__controller"/>
                 <engine:EnumField label="" value="IPhoneProMax" type="Screenshots.Editor.PortraitResolution, Screenshots.Editor" name="portrait-selector" binding-path="&lt;PortraitResolution&gt;k__BackingField" class="portrait-selector resolution__controller"/>
                 <engine:VisualElement name="custom-controller" class="custom-resolution-block" style="flex-grow: 1;">
                     <engine:VisualElement name="width-block" class="dimension_block dimension_block--width">
-                        <engine:UnsignedIntegerField label="W" value="42" name="width-field" binding-path="" class="dimension_block__field"/>
-                        <engine:Button text="" name="lock-btn" focusable="false" class="icon-btn icon-lock icon-btn--constant-width"/>
+                        <engine:UnsignedIntegerField label="W" value="42" name="width-field" binding-path="" tooltip="Defines the exact width of the captured screenshot in pixels." class="dimension_block__field"/>
+                        <engine:Button text="" name="lock-btn" focusable="false" tooltip="Locks the aspect ratio to maintain current proportions when resizing." class="icon-btn icon-lock icon-btn--constant-width"/>
                     </engine:VisualElement>
                     <engine:VisualElement name="height-block" class="dimension_block">
-                        <engine:UnsignedIntegerField label="H" value="42" name="height-field" binding-path="" class="dimension_block__field"/>
+                        <engine:UnsignedIntegerField label="H" value="42" name="height-field" binding-path="" tooltip="Defines the exact height of the captured screenshot in pixels." class="dimension_block__field"/>
                         <engine:Button text="" name="swap-btn" focusable="false" class="icon-btn swap-btn">
-                            <engine:VisualElement style="flex-grow: 1;"/>
+                            <engine:VisualElement tooltip="Swaps the width and height values to easily toggle between landscape and portrait." style="flex-grow: 1;"/>
                         </engine:Button>
-                        <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn resolution-reset-btn icon-btn--right icon-btn--constant-width"/>
+                        <engine:Button text="R" name="reset-btn" focusable="false" tooltip="Resets the custom resolution to its default values." class="icon-btn resolution-reset-btn icon-btn--right icon-btn--constant-width"/>
                     </engine:VisualElement>
                 </engine:VisualElement>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout value="true" name="folder-block" view-data-key="inline-foldout-folder">
             <engine:VisualElement name="active-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
-                <engine:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
-                <engine:Button text="..." name="select-btn" focusable="false" class="icon-btn"/>
-                <engine:Button text="A" name="auto-mode-btn" focusable="false" class="icon-btn icon-btn--right icon-btn--constant-width"/>
+                <engine:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" tooltip="The active destination path where the screenshot file will be saved." class="inline-field__input"/>
+                <engine:Button text="..." name="select-btn" focusable="false" tooltip="Opens a file explorer to select the destination directory." class="icon-btn"/>
+                <engine:Button text="A" name="auto-mode-btn" focusable="false" tooltip="Toggles automatic subfolder creation based on the currently open scene or prefab stage." class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
             <engine:VisualElement name="default-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
-                <engine:TextField label="Default Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
-                <engine:Button text="..." name="select-btn" focusable="false" class="icon-btn"/>
-                <engine:Button text="R" name="reset-btn" focusable="false" class="icon-btn icon-btn--right icon-btn--constant-width"/>
+                <engine:TextField label="Default Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" tooltip="The base directory used exclusively to generate the active path when Auto-mode is enabled." class="inline-field__input"/>
+                <engine:Button text="..." name="select-btn" focusable="false" tooltip="Opens a file explorer to select the base directory." class="icon-btn"/>
+                <engine:Button text="R" name="reset-btn" focusable="false" tooltip="Resets the Default Folder path to its initial configuration." class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout name="file-name" value="true" view-data-key="inline-foldout-name">
             <engine:VisualElement name="file-name__controller" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:VisualElement name="file-name__input" style="flex-grow: 1;">
-                    <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
+                    <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" tooltip="Defines the naming convention for the screenshot file. Use the dynamic tags listed below (e.g., {P}, {S}) to auto-generate names." class="inline-field__input"/>
                     <engine:Label text="1212_113_1123" name="file-name__preview" class="file-name__preview" style="font-size: 11px;"/>
                 </engine:VisualElement>
                 <engine:Label text="." name="file-name__dot" class="file-name__dot"/>
-                <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField" class="file-name__type"/>
-                <engine:Button text="R" name="file-name__reset-btn" class="icon-btn icon-btn--right icon-btn--constant-width"/>
+                <engine:EnumField label="" value="png" type="Screenshots.Editor.ScreenshotType, Screenshots.Editor" name="file-name__type" binding-path="&lt;FileType&gt;k__BackingField" tooltip="Selects the image file format (e.g., PNG, JPG) for the output file" class="file-name__type"/>
+                <engine:Button text="R" name="file-name__reset-btn" tooltip="Resets the naming pattern to the default configuration." class="icon-btn icon-btn--right icon-btn--constant-width"/>
             </engine:VisualElement>
             <engine:VisualElement name="file-name__docs" class="variables-legend inline-foldout__child" style="flex-grow: 1;">
                 <engine:VisualElement class="variables-legend__row">
@@ -94,10 +94,10 @@
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <engine:VisualElement name="footer" class="footer" style="font-size: 18px;">
-            <engine:Button text="Screenshot" name="screenshot-btn"/>
+            <engine:Button text="Screenshot" name="screenshot-btn" tooltip="Captures and saves a screenshot using the specified settings (Shortcut: Ctrl+E)."/>
             <engine:VisualElement class="footer__row" style="flex-grow: 1;">
-                <engine:Button text="Remove All" name="remove-all-btn"/>
-                <engine:Button text="Remove Last" name="remove-last-btn"/>
+                <engine:Button text="Remove All" name="remove-all-btn" tooltip="Deletes all screenshots captured and tracked during the current session."/>
+                <engine:Button text="Remove Last" name="remove-last-btn" tooltip="Deletes the most recently captured screenshot from the disk."/>
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:ScrollView>
