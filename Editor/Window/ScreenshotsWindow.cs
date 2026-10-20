@@ -23,7 +23,7 @@ namespace Screenshots.Editor
         private CameraController _camera   = new();
         private FileWiperController _wiper = new();
         private OrientationController _orientation;
-        private ActiveFolderPathController _folderPath;
+        private FileFolderController _fileFolder;
         private FileNameController _fileName;
         private Button _screenshotBtn;
 
@@ -64,13 +64,8 @@ namespace Screenshots.Editor
                 so.FindProperty("<CustomResolution>k__BackingField")
             );
 
-            new DefaultFolderPathController(
-                root.Q<VisualElement>("default-folder-path"), 
-                so.FindProperty("<DefaultFolderPath>k__BackingField")
-            );
-
-            _folderPath = new ActiveFolderPathController(
-                root.Q<VisualElement>("active-folder-path"),
+            _fileFolder = new FileFolderController(
+                root.Q<VisualElement>("folder-block"),
                 so.FindProperty("<FolderPath>k__BackingField"),
                 so.FindProperty("<DefaultFolderPath>k__BackingField")
             );
@@ -105,7 +100,7 @@ namespace Screenshots.Editor
         private void OnDisable()
         {
             _camera.Dispose();
-            _folderPath.Dispose();
+            _fileFolder.Dispose();
         }
 
         #endregion
@@ -129,7 +124,7 @@ namespace Screenshots.Editor
                 string path = await ScreenshotFactory.CaptureScreenshot(
                     _camera.Reference,
                     _orientation.Size,
-                    _folderPath.Path,
+                    _fileFolder.Path,
                     _fileName.Value,
                     _fileName.Type
                 );
