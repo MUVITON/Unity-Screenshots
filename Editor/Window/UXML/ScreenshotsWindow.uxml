@@ -6,6 +6,7 @@
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Controllers/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/DocLink.uss?fileID=7433441132597879392&amp;guid=2a13a1241e00c374f8eec0d47d5d87fd&amp;type=3#DocLink"/>
     <engine:ScrollView name="window" class="window">
         <engine:VisualElement name="camera-block" class="camera__block inline-foldout__content" style="flex-grow: 1;">
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" tooltip="Selects the target camera to render the screenshot. If left unassigned, the active Scene View camera will be used." class="inline-foldout__child"/>
@@ -101,4 +102,5 @@
             </engine:VisualElement>
         </engine:VisualElement>
     </engine:ScrollView>
+    <engine:Label text="&lt;a href=&quot;https://github.com/MUVITON/Unity-Screenshots&quot;&gt;Documentation &amp; Source Code&lt;/a&gt;" name="doc-link" selectable="false" focusable="false" class="doc-link"/>
 </engine:UXML>
