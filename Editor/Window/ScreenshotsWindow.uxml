@@ -12,7 +12,7 @@
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" tooltip="Selects the target camera to render the screenshot. If left unassigned, the active Scene View camera will be used." class="inline-foldout__child"/>
             <engine:HelpBox text="Scene View camera will be used" button-text="" message-type="Info" language-direction="Inherit" name="scene-view-info" class="scene-view-info"/>
         </engine:VisualElement>
-        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation-block orientation--landscape">
+        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" view-data-key="inline-foldout-orientation" class="orientation-block orientation--landscape">
             <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" tooltip="Defines the predefined aspect ratio or allows setting a custom resolution for the capture." class="inline-foldout__child"/>
             <engine:VisualElement name="resolution-block" class="inline-foldout__child unity-base-field" style="flex-grow: 1;">
                 <engine:Label text="Resolution:" tooltip="The exact width and height of the screenshot in pixels." class="unity-base-field__label"/>
@@ -99,10 +99,10 @@
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <engine:VisualElement name="footer" class="footer" style="font-size: 18px;">
-            <engine:Button text="Screenshot" name="screenshot-btn" tooltip="Captures and saves a screenshot using the specified settings (Shortcut: F12)."/>
+            <engine:Button text="Capture" name="screenshot-btn" tooltip="Captures and saves a screenshot using the specified settings (Shortcut: F12)."/>
             <engine:VisualElement class="footer__row" style="flex-grow: 1;">
-                <engine:Button text="Remove All" name="remove-all-btn" tooltip="Deletes all screenshots captured and tracked during the current session."/>
-                <engine:Button text="Remove Last" name="remove-last-btn" tooltip="Deletes the most recently captured screenshot from the disk."/>
+                <engine:Button text="Delete All" name="remove-all-btn" tooltip="Deletes all screenshots captured and tracked during the current session."/>
+                <engine:Button text="Delete Last" name="remove-last-btn" tooltip="Deletes the most recently captured screenshot from the disk."/>
             </engine:VisualElement>
             <engine:Toggle label="" name="open-after-capture" view-data-key="open-after-capture" text="Open folder after capture" value="true" tooltip="Automatically reveals the saved screenshot in your OS file browser after a successful capture." class="open-after-capture"/>
         </engine:VisualElement>
