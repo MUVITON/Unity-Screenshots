@@ -37,7 +37,7 @@
             <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R" class="inline-foldout__child"/>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout name="file-name" value="true" view-data-key="inline-foldout-name">
-            <engine:VisualElement name="file-name__control" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
+            <engine:VisualElement name="file-name__controller" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
                 <engine:VisualElement name="file-name__input" style="flex-grow: 1;">
                     <engine:TextField label="Name:" placeholder-text="Type name" name="file-name__field" binding-path="&lt;FileName&gt;k__BackingField" class="inline-field__input"/>
                     <engine:Label text="1212_113_1123" name="file-name__preview" class="file-name__preview" style="font-size: 11px;"/>

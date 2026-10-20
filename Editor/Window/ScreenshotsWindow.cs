@@ -24,7 +24,6 @@ namespace Screenshots.Editor
         private OrientationController _orientation;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
-        private EnumField _fileType;
         private Button _screenshotBtn;
 
         #endregion
@@ -75,17 +74,12 @@ namespace Screenshots.Editor
             );
 
             _fileName = new FileNameController(
-                root.Q<TextField>("file-name__field"),
-                root.Q<Label>("file-name__preview"),
-                root.Q<Button>("file-name__reset-btn")
-            );
+                root.Q<VisualElement>("file-name__controller"));
 
             _wiper.Bind(
                 root.Q<Button>("remove-last-btn"),
                 root.Q<Button>("remove-all-btn")
             );
-
-            _fileType = root.Q<EnumField>("file-name__type");
 
             _screenshotBtn = root.Q<Button>("screenshot-btn");
             _screenshotBtn.clicked += CaptureScreenshot;
@@ -115,7 +109,7 @@ namespace Screenshots.Editor
         #endregion
 
 
-        #region Screenshots
+        #region Capture Handler
 
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
@@ -131,7 +125,7 @@ namespace Screenshots.Editor
                     _orientation.Size,
                     _folderPath.Path,
                     _fileName.Value,
-                    (ScreenshotType)_fileType.value
+                    _fileName.Type
                 );
 
                 if (!string.IsNullOrEmpty(path))

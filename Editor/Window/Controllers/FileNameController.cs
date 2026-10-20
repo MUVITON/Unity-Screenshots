@@ -11,6 +11,7 @@ namespace Screenshots.Editor
 
         private readonly TextField _field;
         private readonly Label _preview;
+        private readonly EnumField _fileType;
 
         private string _value;
         public string Value
@@ -22,13 +23,19 @@ namespace Screenshots.Editor
             }
         }
 
-        public FileNameController(TextField field, Label preview, Button resetBtn)
-        {
-            _field = field;
-            _preview = preview;
+        public ScreenshotType Type => (ScreenshotType)_fileType.value;
 
-            field.RegisterValueChangedCallback(e => UpdateValue());
-            field.RegisterCallback<FocusOutEvent>(e => OnFocusOut());
+
+        public FileNameController(VisualElement container)
+        {
+            _field = container.Q<TextField>("file-name__field");
+            _preview = container.Q<Label>("file-name__preview");
+            _fileType = container.Q<EnumField>("file-name__type");
+
+            _field.RegisterValueChangedCallback(e => UpdateValue());
+            _field.RegisterCallback<FocusOutEvent>(e => OnFocusOut());
+
+            var resetBtn = container.Q<Button>("file-name__reset-btn");
             resetBtn.RegisterCallback<ClickEvent>(e => ResetName());
 
             OnFocusOut();
@@ -40,7 +47,7 @@ namespace Screenshots.Editor
             string input = string.IsNullOrEmpty(_field.value) ? defaultName : _field.value;
 
             _value = FileNameProvider.Get(input);
-            _preview.text = FileNameProvider.Get(_value);
+            _preview.text = _value;
         }
 
         private void OnFocusOut()
