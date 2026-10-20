@@ -36,23 +36,23 @@ Open the tool by navigating to the top menu:
 
 ## Interface & Features
 
-![Main Window Interface](./Images/main_window_full.png)
+![Main Window Interface](./Images/main_window_full.PNG)
 
 ### 1\. Camera Source
 
-![Camera Source Section](./Images/section_camera.png)
+![Camera Source Section](./Images/section_camera.PNG)
 
 Drag and drop any camera from your scene here. If left empty, the tool automatically uses your active **Scene View** camera and displays a helpful info box to let you know.
 
 ### 2\. Orientation & Resolution
 
-![Orientation and Resolution Section](./Images/section_resolution.png)
+![Orientation and Resolution Section](./Images/section_resolution.PNG)
 
 Choose from a list of predefined popular device resolutions (e.g., iPhone Pro Max, Full HD, 4K). The Orientation dropdown offers three modes: **Landscape**, **Portrait**, and **Custom**.
 
 #### 2.1 Custom Mode
 
-![Custom Mode Controls](./Images/section_custom_mode.png)
+![Custom Mode Controls](./Images/section_custom_mode.PNG)
 
 When **Custom** orientation is selected, additional manual controls will dynamically appear:
 
@@ -62,7 +62,7 @@ When **Custom** orientation is selected, additional manual controls will dynamic
 
 ### 3\. Destination Folder
 
-![Destination Folder Section](./Images/section_folder.png) 
+![Destination Folder Section](./Images/section_folder.PNG) 
 
 Configure where your screenshots are saved. Click the foldout arrow next to **Folder** to access the base path settings:
 
@@ -72,13 +72,13 @@ Configure where your screenshots are saved. Click the foldout arrow next to **Fo
 
 ### 4\. Dynamic Naming
 
-![Dynamic Naming Section](./Images/section_naming.png)
+![Dynamic Naming Section](./Images/section_naming.PNG)
 
 Create a naming template using built-in macros. For example, `{P}_{S}_{R}` will generate a name like `MyProject_Level1_1920x1080.png`. A live preview of the final filename is displayed right below the input field so you always know exactly what you'll get.
 
 ### 5\. Action Panel
 
-![Action Panel Section](./Images/section_actions.png)
+![Action Panel Section](./Images/section_actions.PNG)
 
 * **Capture:** Takes the screenshot with the specified settings.  
 * **Delete All / Delete Last:** Quickly wipe recent screenshots if you're not satisfied with the result directly from the editor.  
