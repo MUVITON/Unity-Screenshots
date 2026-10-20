@@ -11,12 +11,20 @@ namespace Screenshots.Editor
     internal partial class Texture2DProvider: TextureProvider<Texture2D, Texture2DProvider>
     {
 
+#if UNITY_6000_5_OR_NEWER
+
+        /// <summary>
+        /// Safely clears the static cache during domain reload using the modern Unity API.
+        /// </summary>
         [OnCodeDeinitializing]
         private static void Reset()
         {
             ResetCache();
         }
 
+#endif
+
+        /// <inheritdoc />
         protected override Texture2D Create(Vector2Int screenSize)
         {
             // RGB24 is sufficient for standard screenshots without an alpha channel, saving memory.

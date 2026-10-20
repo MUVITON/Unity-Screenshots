@@ -25,6 +25,18 @@ namespace Screenshots.Editor
         /// </summary>
         private static Queue<(Vector2Int, TTexture)> s_cache;
 
+#if !UNITY_6000_5_OR_NEWER
+
+        /// <summary>
+        /// Subscribes to assembly reload events for older Unity versions lacking the OnCodeDeinitializing attribute.
+        /// </summary>
+        static TextureProvider()
+        {
+            AssemblyReloadEvents.beforeAssemblyReload += ResetCache;
+        }
+
+#endif
+
         /// <summary>
         /// Destroys all cached textures and clears the queue.
         /// </summary>
