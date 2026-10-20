@@ -4,7 +4,7 @@
     margin-top: 0;
 }
 
-.inline-foldout > .inline-foldout__content {
+.inline-foldout__content {
     flex-grow: 1;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -18,8 +18,8 @@
     border-right-color: var(--unity-colors-box-border);
     border-top-color: var(--unity-colors-box-border);
     border-bottom-color: var(--unity-colors-box-border);
-    padding-top: 1px;
-    padding-bottom: 1px;
+    padding-top: 2px;
+    padding-bottom: 3px;
     padding-right: 8px;
     padding-left: 8px;
     background-color: var(--unity-colors-box-background);
@@ -57,5 +57,3 @@
 .inline-foldout > .unity-toggle__input:checked > .unity-toggle__checkmark {
     background-image: resource("uipackageresources/images/d_in_foldout_on.png");
 }
-
-

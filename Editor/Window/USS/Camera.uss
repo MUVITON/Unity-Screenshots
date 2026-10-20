@@ -1,0 +1,12 @@
+.camera__block {
+    margin-left: 22px;
+    margin-right: 3px;
+}
+
+.scene-view-info {
+    display: none;
+}
+
+.camera__block--scene-view > .scene-view-info {
+    display: flex;
+}

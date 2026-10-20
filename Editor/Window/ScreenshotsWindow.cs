@@ -20,15 +20,14 @@ namespace Screenshots.Editor
         [SerializeField, Tooltip("Visual Tree Asset for the Screenshots Window UI")]
         private VisualTreeAsset _screenshotsWindowUXMLAsset;
 
+        private CameraController _camera   = new();
+        private FileWiperController _wiper = new();
         private OrientationController _orientation;
         private CustomResolutionController _customResolution;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
-        private FileWiperController _wiper = new();
         private EnumField _fileType;
         private Button _screenshotBtn;
-
-        private Camera _camera;
 
         #endregion
 
@@ -58,10 +57,7 @@ namespace Screenshots.Editor
             root.Bind(so);
             root.RegisterCallback<KeyDownEvent>(KeyDownHandler);
 
-            InitCamera(root);
-
-            var prop = so.FindProperty("<CustomResolution>k__BackingField");
-            prop.NextVisible(true);
+            _camera.Bind(root.Q<VisualElement>("camera-block"));
 
             _orientation = new OrientationController(
                 root.Q<VisualElement>("orientation-block"),
@@ -102,16 +98,6 @@ namespace Screenshots.Editor
         }
 
         /// <summary>
-        /// Initializes the camera selection field.
-        /// </summary>
-        /// <param name="root">The root VisualElement of the window.</param>
-        private void InitCamera(VisualElement root)
-        {
-            ObjectField cameraField = root.Q<ObjectField>("camera-source");
-            cameraField.RegisterValueChangedCallback(e => { _camera = e.newValue as Camera; });
-        }
-
-        /// <summary>
         /// Handles key down events. Triggers screenshot capture when Ctrl+E is pressed.
         /// </summary>
         /// <param name="e">The key down event data.</param>
@@ -124,10 +110,11 @@ namespace Screenshots.Editor
         #endregion
 
 
-        #region Destroy
+        #region Disable
 
-        private void OnDestroy()
+        private void OnDisable()
         {
+            _camera.Dispose();
             _folderPath.Dispose();
         }
 
@@ -152,17 +139,12 @@ namespace Screenshots.Editor
         /// </summary>
         private async void CaptureScreenshot()
         {
-            Camera camera = _camera ?? SceneView.lastActiveSceneView?.camera;
-
-            if (camera == null)
-                camera = Camera.main;
-
             _screenshotBtn.SetEnabled(false);
 
             try
             {
                 string path = await ScreenshotFactory.CaptureScreenshot(
-                    camera,
+                    _camera.Reference,
                     GetSize(),
                     _folderPath.Path,
                     _fileName.Value,
