@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -23,7 +22,6 @@ namespace Screenshots.Editor
         private CameraController _camera   = new();
         private FileWiperController _wiper = new();
         private OrientationController _orientation;
-        private CustomResolutionController _customResolution;
         private ActiveFolderPathController _folderPath;
         private FileNameController _fileName;
         private EnumField _fileType;
@@ -61,11 +59,7 @@ namespace Screenshots.Editor
 
             _orientation = new OrientationController(
                 root.Q<VisualElement>("orientation-block"),
-                root.Q<EnumField>("orientation-selector")
-            );
-
-            _customResolution = new CustomResolutionController(
-                root.Q<VisualElement>("custom-controller"),
+                root.Q<EnumField>("orientation-selector"),
                 so.FindProperty("<CustomResolution>k__BackingField")
             );
 
@@ -123,17 +117,6 @@ namespace Screenshots.Editor
 
         #region Screenshots
 
-        private Vector2Int GetSize()
-        {
-            return _orientation.Value switch
-            {
-                ScreenshotOrientation.Landscape => LandscapeResolutionProvider.GetSize(ScreenshotsConfig.instance.LandscapeResolution),
-                ScreenshotOrientation.Portrait  => PortraitResolutionProvider.GetSize(ScreenshotsConfig.instance.PortraitResolution),
-                ScreenshotOrientation.Custom    => _customResolution.Value,
-                _ => throw new InvalidOperationException()
-            };
-        }
-
         /// <summary>
         /// Captures a screenshot using the selected camera and saves it to the specified folder.
         /// </summary>
@@ -145,7 +128,7 @@ namespace Screenshots.Editor
             {
                 string path = await ScreenshotFactory.CaptureScreenshot(
                     _camera.Reference,
-                    GetSize(),
+                    _orientation.Size,
                     _folderPath.Path,
                     _fileName.Value,
                     (ScreenshotType)_fileType.value

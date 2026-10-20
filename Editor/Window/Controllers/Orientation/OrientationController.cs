@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -19,16 +21,20 @@ namespace Screenshots.Editor
 
         private readonly VisualElement _block;
         private readonly EnumField _field;
+        private readonly SizeController _size;
 
         public ScreenshotOrientation Value => (ScreenshotOrientation)_field.value;
+        public Vector2Int Size => _size.GetValue(Value);
 
 
-        public OrientationController(VisualElement block, EnumField field)
+        public OrientationController(VisualElement block, EnumField field, SerializedProperty customSizeProperty)
         {
             _block = block;
 
             _field = field;
             _field.RegisterValueChangedCallback(e => AlignModeClassName(e.newValue));
+
+            _size = new(block, customSizeProperty);
 
             AlignModeClassName(_field.value);
         }
