@@ -5,19 +5,19 @@
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/FileName/FileName.uss?fileID=7433441132597879392&amp;guid=ee51c5012ce3b2a4eaf409e1f2e0ceeb&amp;type=3#FileName"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/Footer/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/General/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/FolderPath/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
     <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Components/DocLink.uss?fileID=7433441132597879392&amp;guid=2a13a1241e00c374f8eec0d47d5d87fd&amp;type=3#DocLink"/>
     <engine:ScrollView name="window" class="window">
         <engine:VisualElement name="camera-block" class="camera__block inline-foldout__content" style="flex-grow: 1;">
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" tooltip="Selects the target camera to render the screenshot. If left unassigned, the active Scene View camera will be used." class="inline-foldout__child"/>
             <engine:HelpBox text="Scene View camera will be used" button-text="" message-type="Info" language-direction="Inherit" name="scene-view-info" class="scene-view-info"/>
         </engine:VisualElement>
-        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation--custom orientation-block">
+        <Screenshots.Editor.InlineFoldout name="orientation-block" value="true" class="orientation-block orientation--landscape">
             <engine:EnumField label="Orientation:" value="Landscape" type="Screenshots.Editor.ScreenshotOrientation, Screenshots.Editor" name="orientation-selector" binding-path="&lt;Orientation&gt;k__BackingField" tooltip="Defines the predefined aspect ratio or allows setting a custom resolution for the capture." class="inline-foldout__child"/>
             <engine:VisualElement name="resolution-block" class="inline-foldout__child unity-base-field" style="flex-grow: 1;">
                 <engine:Label text="Resolution:" tooltip="The exact width and height of the screenshot in pixels." class="unity-base-field__label"/>
-                <engine:EnumField label="" value="FullHD" type="Screenshots.Editor.LandscapeResolution, Screenshots.Editor" name="landscape-selector" binding-path="&lt;LandscapeResolution&gt;k__BackingField" class="landscape-selector resolution__controller"/>
-                <engine:EnumField label="" value="IPhoneProMax" type="Screenshots.Editor.PortraitResolution, Screenshots.Editor" name="portrait-selector" binding-path="&lt;PortraitResolution&gt;k__BackingField" class="portrait-selector resolution__controller"/>
+                <engine:EnumField label="" value="FullHD" type="Screenshots.Editor.LandscapeResolution, Screenshots.Editor" name="landscape-selector" binding-path="&lt;LandscapeResolution&gt;k__BackingField" class="landscape-selector resolution__controller inline-field__input"/>
+                <engine:EnumField label="" value="IPhoneProMax" type="Screenshots.Editor.PortraitResolution, Screenshots.Editor" name="portrait-selector" binding-path="&lt;PortraitResolution&gt;k__BackingField" class="portrait-selector resolution__controller inline-field__input"/>
                 <engine:VisualElement name="custom-controller" class="custom-resolution-block" style="flex-grow: 1;">
                     <engine:VisualElement name="width-block" class="dimension_block dimension_block--width">
                         <engine:UnsignedIntegerField label="W" value="42" name="width-field" binding-path="" tooltip="Defines the exact width of the captured screenshot in pixels." class="dimension_block__field"/>

@@ -9,6 +9,7 @@
 .file-name__dot {
     -unity-text-align: lower-left;
     margin-top: 4px;
+    margin-left: 3px;
 }
 
 .file-name__type {

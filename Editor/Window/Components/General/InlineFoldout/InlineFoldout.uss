@@ -29,9 +29,10 @@
     margin-top: 2px;
     margin-bottom: 2px;
     margin-right: 0;
+    margin-left: 0;
 }
 
-.inline-foldout__child > .unity-base-field {
+.inline-field__input {
     margin-left: 0;
     margin-right: 0;
 }
