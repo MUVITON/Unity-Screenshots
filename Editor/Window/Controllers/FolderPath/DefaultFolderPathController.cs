@@ -10,11 +10,15 @@ namespace Screenshots.Editor
 
         const string DefaultPath = "Screenshots";
 
+        private readonly Button _resetBtn;
 
-        public DefaultFolderPathController(FolderField field, SerializedProperty property)
-            : base(field, property)
+
+        public DefaultFolderPathController(VisualElement container, SerializedProperty property)
+            : base(container, property)
         {
-            Field.SecondButton.RegisterCallback<ClickEvent>(e => SetDefaultPath());
+            _resetBtn = container.Q<Button>("reset-btn");
+            _resetBtn.RegisterCallback<ClickEvent>(e => SetDefaultPath());
+
             OnPropertyChanged(Property);
         }
 
@@ -31,8 +35,9 @@ namespace Screenshots.Editor
 
             string value = property.stringValue;
 
-            Field.Input.SetValueWithoutNotify(value);
-            Field.SecondButton.SetEnabled(value != DefaultPath);
+            _resetBtn.SetEnabled(value != DefaultPath);
+
+            Input.SetValueWithoutNotify(value);
         }
 
     }

@@ -1,8 +1,0 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/FolderField/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
-    <ui:VisualElement name="" class="inline-field" style="flex-grow: 1; align-items: flex-start;">
-        <ui:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" class="inline-field__input"/>
-        <ui:Button text="..." name="first-btn" focusable="false"/>
-        <ui:Button text="A" name="second-btn" focusable="false"/>
-    </ui:VisualElement>
-</ui:UXML>

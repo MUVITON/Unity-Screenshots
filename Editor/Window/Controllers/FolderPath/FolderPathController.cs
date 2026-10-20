@@ -1,6 +1,5 @@
 ﻿using UnityEditor;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -12,24 +11,26 @@ namespace Screenshots.Editor
 
         #region State
 
-        protected FolderField Field { get; }
+        protected TextField Input { get; }
         protected SerializedProperty Property { get; }   
 
-        public string Path => Field.Input.value;
+        public string Path => Input.value;
 
         #endregion
 
 
         #region Initialization
 
-        public FolderPathController(FolderField field, SerializedProperty property)
+        public FolderPathController(VisualElement container, SerializedProperty property)
         {
             Property = property;
-            Field    = field;
 
-            Field.Input.RegisterCallback<ClickEvent>(e => { if (e.clickCount == 2) OpenFolder(); });
-            Field.Input.TrackPropertyValue(Property, OnPropertyChanged);
-            Field.FirstButton.RegisterCallback<ClickEvent>(e => SelectFolder());
+            Input = container.Q<TextField>();
+            Input.RegisterCallback<ClickEvent>(e => { if (e.clickCount == 2) OpenFolder(); });
+            Input.TrackPropertyValue(Property, OnPropertyChanged);
+            
+            var selectBtn = container.Q<Button>("select-btn");
+            selectBtn.RegisterCallback<ClickEvent>(e => SelectFolder());
         }
 
         #endregion

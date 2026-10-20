@@ -25,6 +25,8 @@ namespace Screenshots.Editor
         private readonly EditorSceneManager.SceneOpenedCallback _setDefaultPathByScene;
         private readonly Action<PrefabStage> _setDefaultPathByPrefab;
 
+        private readonly Button _autoModeBtn;
+
         private SerializedProperty _defaultPath;
 
         private Mode _mode;
@@ -34,17 +36,18 @@ namespace Screenshots.Editor
 
         #region Initialization
 
-        public ActiveFolderPathController(FolderField field, SerializedProperty activePath, SerializedProperty defaultPath)
-            : base(field, activePath)
+        public ActiveFolderPathController(VisualElement container, SerializedProperty activePath, SerializedProperty defaultPath)
+            : base(container, activePath)
         {
             _setDefaultPathByScene  = SetDefaultPathByScene;
             _setDefaultPathByPrefab = SetDefaultPathByPrefab;
 
             _defaultPath = defaultPath;
 
-            Field.Input.TrackPropertyValue(_defaultPath, p => OnPropertyChanged(Property));
+            Input.TrackPropertyValue(_defaultPath, p => OnPropertyChanged(Property));
 
-            Field.SecondButton.RegisterCallback<ClickEvent>(e =>
+            _autoModeBtn = container.Q<Button>("auto-mode-btn");
+            _autoModeBtn.RegisterCallback<ClickEvent>(e =>
             {
                 if (_mode == Mode.Default)
                     Property.stringValue = Path;
@@ -80,13 +83,13 @@ namespace Screenshots.Editor
 
         private void SetDefaultMode()
         {
-            IconButtonSelectionController.ApplyState(Field.SecondButton, true);
+            IconButtonSelectionController.ApplyState(_autoModeBtn, true);
             StartTrackSceneChange();
         }
 
         private void SetCustomMode()
         {
-            IconButtonSelectionController.ApplyState(Field.SecondButton, false);
+            IconButtonSelectionController.ApplyState(_autoModeBtn, false);
             StopTrackSceneChange();
         }
 
@@ -133,7 +136,7 @@ namespace Screenshots.Editor
             }
             else
             {
-                Field.Input.SetValueWithoutNotify(property.stringValue);
+                Input.SetValueWithoutNotify(property.stringValue);
                 SetMode(Mode.Custom);
             }
         }
@@ -157,7 +160,7 @@ namespace Screenshots.Editor
             if (string.IsNullOrEmpty(name))
                 name = "Untitled";
 
-            Field.Input.SetValueWithoutNotify($"{_defaultPath.stringValue}/{name}");
+            Input.SetValueWithoutNotify($"{_defaultPath.stringValue}/{name}");
         }
 
         #endregion

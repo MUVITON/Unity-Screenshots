@@ -63,12 +63,12 @@ namespace Screenshots.Editor
             );
 
             new DefaultFolderPathController(
-                root.Q<FolderField>("default-folder-path"), 
+                root.Q<VisualElement>("default-folder-path"), 
                 so.FindProperty("<DefaultFolderPath>k__BackingField")
             );
 
             _folderPath = new ActiveFolderPathController(
-                root.Q<FolderField>("active-folder-path"),
+                root.Q<VisualElement>("active-folder-path"),
                 so.FindProperty("<FolderPath>k__BackingField"),
                 so.FindProperty("<DefaultFolderPath>k__BackingField")
             );

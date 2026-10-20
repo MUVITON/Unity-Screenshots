@@ -1,11 +1,11 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/USS/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/USS/Camera.uss?fileID=7433441132597879392&amp;guid=33f57deeed3520e4aa63aae8afa045d8&amp;type=3#Camera"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/USS/Orientation.uss?fileID=7433441132597879392&amp;guid=4acee2386476f4541a33d5421c1e378d&amp;type=3#Orientation"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/USS/FileName.uss?fileID=7433441132597879392&amp;guid=ee51c5012ce3b2a4eaf409e1f2e0ceeb&amp;type=3#FileName"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/USS/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
-    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Templates/FolderField/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/ScreenshotsWindow.uss?fileID=7433441132597879392&amp;guid=efcda6f620de71a428493c4b9f3cc50f&amp;type=3#ScreenshotsWindow"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Camera.uss?fileID=7433441132597879392&amp;guid=33f57deeed3520e4aa63aae8afa045d8&amp;type=3#Camera"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Orientation.uss?fileID=7433441132597879392&amp;guid=4acee2386476f4541a33d5421c1e378d&amp;type=3#Orientation"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/FileName.uss?fileID=7433441132597879392&amp;guid=ee51c5012ce3b2a4eaf409e1f2e0ceeb&amp;type=3#FileName"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/USS/Footer.uss?fileID=7433441132597879392&amp;guid=3bbb9ed5150104047a7f943b75737740&amp;type=3#Footer"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/UXML/InlineFoldout/InlineFoldout.uss?fileID=7433441132597879392&amp;guid=d4336d18b842d7240941314932f6fc13&amp;type=3#InlineFoldout"/>
+    <Style src="project://database/Packages/com.muviton.screenshots/Editor/Window/Controllers/FolderPath/UXML/FolderField.uss?fileID=7433441132597879392&amp;guid=e702e9cb912778a4f842484eddedf426&amp;type=3#FolderField"/>
     <engine:ScrollView name="window" class="window">
         <engine:VisualElement name="camera-block" class="camera__block inline-foldout__content" style="flex-grow: 1;">
             <editor:ObjectField label="Camera:" name="camera-input" type="UnityEngine.Camera, UnityEngine.CoreModule" class="inline-foldout__child"/>
@@ -33,8 +33,16 @@
             </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout value="false" name="folder-block" view-data-key="inline-foldout-folder">
-            <Screenshots.Editor.FolderField name="active-folder-path" class="inline-foldout__child"/>
-            <Screenshots.Editor.FolderField name="default-folder-path" label="Default Folder:" second-button-text="R" class="inline-foldout__child"/>
+            <engine:VisualElement name="active-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
+                <engine:TextField label="Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
+                <engine:Button text="..." name="select-btn" focusable="false"/>
+                <engine:Button text="A" name="auto-mode-btn" focusable="false"/>
+            </engine:VisualElement>
+            <engine:VisualElement name="default-folder-path" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
+                <engine:TextField label="Default Folder:" placeholder-text="Select Folder" readonly="true" name="path-field" class="inline-field__input"/>
+                <engine:Button text="..." name="select-btn" focusable="false"/>
+                <engine:Button text="R" name="reset-btn" focusable="false"/>
+            </engine:VisualElement>
         </Screenshots.Editor.InlineFoldout>
         <Screenshots.Editor.InlineFoldout name="file-name" value="true" view-data-key="inline-foldout-name">
             <engine:VisualElement name="file-name__controller" class="inline-field inline-foldout__child" style="flex-grow: 1; align-items: flex-start;">
