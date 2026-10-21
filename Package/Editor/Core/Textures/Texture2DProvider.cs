@@ -27,7 +27,7 @@ namespace Screenshots.Editor
         protected override Texture2D Create(Vector2Int screenSize, bool isHDR)
         {
             TextureFormat format = isHDR ? TextureFormat.RGBAHalf : TextureFormat.RGB24;
-            return new Texture2D(screenSize.x, screenSize.y, format, false);
+            return new Texture2D(screenSize.x, screenSize.y, format, false, isHDR);
         }
 
     }
