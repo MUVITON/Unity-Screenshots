@@ -1,14 +1,12 @@
 # Unity-Screenshots
 
-![](https://img.shields.io/badge/unity-2022.3%2B-000.svg) ![](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![](https://img.shields.io/badge/unity-6000.0%2B-000.svg) ![](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-A premium, zero-friction screenshot tool for Unity Editor. Take high-resolution, perfectly framed screenshots of your game or scene with a single click, right from the editor.
+A screenshot tool for Unity Editor. Capture high-resolution screenshots of your game cameras and scenes directly from the editor.
 
 ## Requirements
 
-* Unity 2022.3 or newer (Full support for Unity 6 / `UNITY_6000_5_OR_NEWER`).
-
-* Built with UI Toolkit.
+* Unity 6 (6000.0) or newer.
 
 ## Installation
 
@@ -74,7 +72,9 @@ Configure where your screenshots are saved. Click the foldout arrow next to **Fo
 
 ![Dynamic Naming Section](./Images/section_naming.PNG)
 
-Create a naming template using built-in macros. For example, `{P}_{S}_{R}` will generate a name like `MyProject_Level1_1920x1080.png`. A live preview of the final filename is displayed right below the input field so you always know exactly what you'll get.
+Create custom file names using built-in macros for project data (Project, Scene, Resolution) and timestamps. For example, `{P}_{S}_{R}` generates `MyProject_Level1_1920x1080`. 
+
+A live preview below the input shows the exact result. You can also quickly select the output image format (`.png` or `.jpg`) using the adjacent dropdown.
 
 ### 5\. Action Panel
 
