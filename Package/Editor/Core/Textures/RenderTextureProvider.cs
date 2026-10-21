@@ -1,5 +1,4 @@
-﻿using Unity.Scripting.LifecycleManagement;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace Screenshots.Editor
@@ -16,7 +15,7 @@ namespace Screenshots.Editor
         /// <summary>
         /// Safely clears the static cache during domain reload using the modern Unity API.
         /// </summary>
-        [OnCodeDeinitializing]
+        [Unity.Scripting.LifecycleManagement.OnCodeDeinitializing]
         private static void Reset()
         {
             ResetCache();

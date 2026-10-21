@@ -32,7 +32,7 @@ namespace Screenshots.Editor
         /// </summary>
         static TextureProvider()
         {
-            AssemblyReloadEvents.beforeAssemblyReload += ResetCache;
+            UnityEditor.AssemblyReloadEvents.beforeAssemblyReload += ResetCache;
         }
 
 #endif
