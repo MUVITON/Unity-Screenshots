@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Screenshots.Editor
@@ -24,10 +25,12 @@ namespace Screenshots.Editor
 #endif
 
         /// <inheritdoc />
-        protected override RenderTexture Create(Vector2Int screenSize)
+        protected override RenderTexture Create(Vector2Int screenSize, bool isHDR)
         {
-            // 24-bit depth buffer, ARGB32 format, sRGB read/write for accurate color capture.
-            return new RenderTexture(screenSize.x, screenSize.y, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+            var format    = isHDR ? RenderTextureFormat.DefaultHDR : RenderTextureFormat.ARGB32;
+            var readWrite = isHDR ? RenderTextureReadWrite.Linear  : RenderTextureReadWrite.sRGB;
+
+            return new RenderTexture(screenSize.x, screenSize.y, 24, format, readWrite);
         }
 
         /// <inheritdoc />

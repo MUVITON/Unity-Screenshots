@@ -20,10 +20,10 @@ namespace Screenshots.Editor
         private static TCacher s_instance = new();
 
         /// <summary>
-        /// A queue holding the cached textures along with their requested resolutions.
-        /// Acts as a simple LRU (Least Recently Used) cache with a max capacity of 2.
+        /// A FIFO cache holding textures and their requested resolutions and HDR settings.
+        /// The cache is limited to a maximum of two textures.
         /// </summary>
-        private static Queue<(Vector2Int, TTexture)> s_cache;
+        private static Queue<((Vector2Int size, bool isHDR), TTexture)> s_cache;
 
 #if !UNITY_6000_5_OR_NEWER
 
@@ -55,14 +55,14 @@ namespace Screenshots.Editor
         /// </summary>
         /// <param name="screenSize">The required dimensions (width and height) of the texture.</param>
         /// <returns>An instance of <typeparamref name="TTexture"/> matching the requested size.</returns>
-        public static TTexture Get(Vector2Int screenSize)
+        public static TTexture Get(Vector2Int screenSize, bool isHDR)
         {
-            s_cache ??= new Queue<(Vector2Int, TTexture)>();
+            s_cache ??= new Queue<((Vector2Int size, bool isHDR), TTexture)>();
 
             // Check if we already have a texture of the exact requested size in the cache.
-            foreach ((Vector2Int size, TTexture texture) in s_cache)
+            foreach (var (key, texture) in s_cache)
             {
-                if (size == screenSize)
+                if (key.size == screenSize && key.isHDR == isHDR)
                     return texture;
             }
 
@@ -70,9 +70,9 @@ namespace Screenshots.Editor
             if (s_cache.Count > 1)
                 s_instance.Destroy(s_cache.Dequeue().Item2);
 
-            var newTexture = s_instance.Create(screenSize);
+            var newTexture = s_instance.Create(screenSize, isHDR);
 
-            s_cache.Enqueue((screenSize, newTexture));
+            s_cache.Enqueue(((screenSize, isHDR), newTexture));
 
             return newTexture;
         }
@@ -80,7 +80,7 @@ namespace Screenshots.Editor
         /// <summary>
         /// Factory method to create a new texture of the specified type and size.
         /// </summary>
-        protected abstract TTexture Create(Vector2Int screenSize);
+        protected abstract TTexture Create(Vector2Int screenSize, bool isHDR);
 
         /// <summary>
         /// Safely destroys the texture instance to free up memory.

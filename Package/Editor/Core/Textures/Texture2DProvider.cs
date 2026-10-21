@@ -24,10 +24,10 @@ namespace Screenshots.Editor
 #endif
 
         /// <inheritdoc />
-        protected override Texture2D Create(Vector2Int screenSize)
+        protected override Texture2D Create(Vector2Int screenSize, bool isHDR)
         {
-            // RGB24 is sufficient for standard screenshots without an alpha channel, saving memory.
-            return new Texture2D(screenSize.x, screenSize.y, TextureFormat.RGB24, false);
+            TextureFormat format = isHDR ? TextureFormat.RGBAHalf : TextureFormat.RGB24;
+            return new Texture2D(screenSize.x, screenSize.y, format, false);
         }
 
     }

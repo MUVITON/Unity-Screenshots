@@ -39,7 +39,7 @@ namespace Screenshots.Editor
         }
 
         /// <summary>
-        /// A zero-allocation helper struct that safely sets the active <see cref="RenderTexture"/> 
+        /// A helper struct that safely sets the active <see cref="RenderTexture"/> 
         /// and restores the previously active one upon disposal.
         /// </summary>
         private readonly struct RenderTextureScope: IDisposable
@@ -67,12 +67,12 @@ namespace Screenshots.Editor
         /// <summary>
         /// Reads pixels from the provided RenderTexture into a Texture2D.
         /// </summary>
-        private static Texture2D Get2DTexture(RenderTexture renderTexture)
+        private static Texture2D Get2DTexture(RenderTexture renderTexture, bool isHDR)
         {
             using var scope = new RenderTextureScope(renderTexture);
 
             Texture2D texture2D = Texture2DProvider.Get(
-                    new(renderTexture.width, renderTexture.height));
+                    new(renderTexture.width, renderTexture.height), isHDR);
             texture2D.ReadPixels(
                 new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             texture2D.Apply();
@@ -90,8 +90,8 @@ namespace Screenshots.Editor
                 ScreenshotType.png => texture.EncodeToPNG(),
                 ScreenshotType.jpg => texture.EncodeToJPG(),
                 ScreenshotType.tga => texture.EncodeToTGA(),
-                ScreenshotType.exr => texture.EncodeToEXR(),
-                _ => throw new NotImplementedException(nameof(type))
+                ScreenshotType.exr => texture.EncodeToEXR(Texture2D.EXRFlags.CompressZIP),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Unsupported screenshot format.")
             };
         }
 
@@ -144,12 +144,13 @@ namespace Screenshots.Editor
 
             try
             {
-                RenderTexture texture = RenderTextureProvider.Get(size);
+                bool isHDR = type == ScreenshotType.exr;
+                RenderTexture texture = RenderTextureProvider.Get(size, isHDR);
 
                 using (new CameraTextureScope(camera, texture))
                     camera.Render();
 
-                byte[] bytes = EncodeTexture(Get2DTexture(texture), type);
+                byte[] bytes = EncodeTexture(Get2DTexture(texture, isHDR), type);
 
                 await File.WriteAllBytesAsync(path, bytes);
 

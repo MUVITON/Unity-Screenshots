@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/unity-6000.0%2B-000.svg) ![](https://img.shields.io/badge/version-1.0.0-blue.svg)
 
-A screenshot tool for Unity Editor. Capture high-resolution screenshots of your game cameras and scenes directly from the editor.
+A lightweight screenshot tool for Unity Editor. Capture high-resolution LDR and true 16-bit HDR screenshots of your game cameras and scenes directly from the editor.
 
 ## Requirements
 
@@ -68,13 +68,15 @@ Configure where your screenshots are saved. Click the foldout arrow next to **Fo
 * **`[A]` (Auto-Generate Path):** Automatically builds the target path by taking your **Default Folder** and appending the active Scene or Prefab name as a subfolder (e.g., `Screenshots/SampleScene`).
 * **Default Folder:** The root directory used by the **`[A]`** auto-mode. You can change it via **`[...]`** or click **`[R]`** to reset it back to the default `Screenshots` folder.
 
-### 4\. Dynamic Naming
+### 4\. Dynamic Naming & Formats
 
 ![Dynamic Naming Section](./Images/section_naming.PNG)
 
 Create custom file names using built-in macros for project data (Project, Scene, Resolution) and timestamps. For example, `{P}_{S}_{R}` generates `MyProject_Level1_1920x1080`. 
 
-A live preview below the input shows the exact result. You can also quickly select the output image format (`.png` or `.jpg`) using the adjacent dropdown.
+A live preview below the input shows the exact result. You can also quickly select the output image format using the adjacent dropdown:
+- **PNG / JPG / TGA:** For standard 8-bit LDR captures.
+- **EXR:** For true 16-bit HDR captures (saved with lossless ZIP compression to save disk space).
 
 ### 5\. Action Panel
 
