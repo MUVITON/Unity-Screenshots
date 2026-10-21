@@ -38,7 +38,30 @@ namespace Screenshots.Editor
 
         }
 
+        /// <summary>
+        /// A zero-allocation helper struct that safely sets the active <see cref="RenderTexture"/> 
+        /// and restores the previously active one upon disposal.
+        /// </summary>
+        private readonly struct RenderTextureScope: IDisposable
+        {
 
+            private readonly RenderTexture _previous;
+
+            public RenderTextureScope(RenderTexture texture)
+            {
+                _previous = RenderTexture.active;
+                RenderTexture.active = texture;
+            }
+
+            public void Dispose()
+            {
+                RenderTexture.active = _previous;
+            }
+
+        }
+
+
+        // Flag to prevent multiple simultaneous screenshot capture operations.
         private static bool s_inProcess;
 
         /// <summary>
@@ -46,13 +69,13 @@ namespace Screenshots.Editor
         /// </summary>
         private static Texture2D Get2DTexture(RenderTexture renderTexture)
         {
-            RenderTexture.active = renderTexture;
+            using var scope = new RenderTextureScope(renderTexture);
 
-            Texture2D texture2D = Texture2DProvider.Get(new(renderTexture.width, renderTexture.height));
-            texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            Texture2D texture2D = Texture2DProvider.Get(
+                    new(renderTexture.width, renderTexture.height));
+            texture2D.ReadPixels(
+                new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
             texture2D.Apply();
-
-            RenderTexture.active = null;
 
             return texture2D;
         }
